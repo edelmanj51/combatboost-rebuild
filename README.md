@@ -12,8 +12,7 @@ item is a genuine URL with its own `index.html`:
 ```
 /                              Homepage — persuasive core only
 /pricing/                      Full pricing/what's-included breakdown
-/case-studies/                 Case studies index (story rows)
-/case-studies/dan-carey/       Individual case study page
+/results/                      Results — aggregate proof, one page
 /about/                        Full About page
 /faq/                          Full FAQ page
 /assets/styles.css             Shared stylesheet, all pages
@@ -32,6 +31,12 @@ site referenced in this project (EFC, Monstro, 97Display, New Member
 Ninja) actually ships. Every nav link is still a real, distinct,
 bookmarkable, crawlable URL — which was the actual requirement.
 
+**Why /results is one page, not an index + sub-pages** (unlike the
+earlier /case-studies draft): there are no individual client story arcs
+to tell yet — what exists is aggregate proof (calendars, search-ranking
+before/afters, PageSpeed before/afters, growth charts, testimonials).
+Renamed and restructured per direction to match that reality.
+
 ## Editing
 
 `build.py` is a **local authoring convenience only** — it is not run by
@@ -42,14 +47,48 @@ HTML files straight into the repo. To make a content change:
 
 1. Edit the relevant `build_*()` function in `build.py`, or
    `assets/styles.css` directly for styling.
-2. Run `python3 build.py` to regenerate all 6 pages.
+2. Run `python3 build.py` to regenerate all pages.
 3. Commit the regenerated `index.html` files along with `build.py`.
 
-Adding a new individual case-study page (e.g. a second real client
-story) means adding one new `build_case_study_<name>()` function
-following the `build_case_study_dan_carey()` pattern, and one new
-`<div class="story-row">` entry in `build_case_studies_index()` linking
-to it — no other page needs to change.
+### Adding a new Results proof item (this page will keep growing)
+
+The Results page is entirely data-driven — no page markup needs to
+change to add a new item:
+
+- **A new calendar screenshot:** add one entry to the `CALENDAR_ITEMS`
+  list near the top of `build.py` — `{"school": "...", "badge": "...",
+  "img": "/assets/images/....jpg", "featured": True or False}`.
+  `featured: True` shows it in the main grid; `False` puts it behind the
+  "See more" expand.
+- **A new written or video testimonial:** add one entry to the
+  `TESTIMONIALS` list the same way.
+- **A new Site Performance / Search Visibility / Growth stat or chart:**
+  these are currently hand-written in `build_results()` since each is a
+  one-off named metric (not a repeating list like calendars) — copy the
+  existing `.stat-compare-item` or `.proof-pending` block pattern for a
+  new one.
+
+Then run `python3 build.py` and commit.
+
+### Once Google Drive access is connected
+
+Every screenshot referenced in the brief (12 calendar shots, the
+PageSpeed before/after, the Google Maps heatmap, the growth charts, the
+client text message, and 3 of the 4 written/video testimonials) is
+still a labeled placeholder — Drive wasn't authenticated in the session
+that built this. To finish the page:
+
+1. Pull the real files from the Drive folder, redact any visible
+   student names/personal info in the calendar screenshots (school names
+   are fine to show), and drop them into `assets/images/`.
+2. In `build.py`, change each relevant `"img": None` to the real file
+   path in `CALENDAR_ITEMS`, and swap the `proof-pending` placeholder
+   `<div>`s in `build_results()` for real `<img>` tags for the
+   Performance/Visibility/Growth screenshots.
+3. Transcribe the real text-message screenshot's content into the
+   `.text-bubble` in `build_results()`, and the 3 additional written
+   testimonials' real quotes into `TESTIMONIALS`.
+4. Run `python3 build.py` and commit.
 
 ## Deploying to Cloudflare Pages
 
@@ -67,20 +106,25 @@ site — see the banner at the top of every page. Real assets used so far:
 
 - Hero before/after: Clifton Martial Arts Academy's actual live old site
   (cliftonmartialarts.com) vs. the actual Combat Boost rebuild.
-- Case-study screenshot: the actual live Striker Lab Muay Thai
-  Kickboxing build.
 - About-section photo: a real photo from an actual Combat Boost client.
-- Video testimonial: real client (Dan Carey, permission granted) — no
-  actual video file is embedded yet, just the pull-quotes and a
-  placeholder player frame, on both the homepage and his individual
-  case-study page.
+- Results page video: a real, working Vimeo embed of Dan Carey's
+  testimonial (permission granted), with his real pull-quotes as text
+  alongside it.
 
-Still open/placeholder, flagged inline in the pages themselves: client
-"logos" in the proof strip are text wordmarks (no real logo files on
-hand yet); Moore's Karate and Camal & Cruz's case-study rows are
-"coming soon" teasers with no verified per-client results data yet; the
-"+9 reactivated" stat is labeled as an illustrative average, not a
-verified per-client number.
+**Blocked on Google Drive access** (not authenticated this session —
+run `/mcp` and connect "claude.ai Google Drive" to unblock): all 12
+calendar screenshots, the Site Performance before/after image, the
+Google Maps heatmap image, the 3 growth-over-time charts, the client
+text-message screenshot's actual content, and 3 of the 4
+written/video testimonials' actual quotes. Every one of these is a
+clearly labeled "pending" placeholder on the live page right now, not
+invented content — see "Once Google Drive access is connected" above
+for exactly how to finish each one.
+
+The real numbers you provided *were* used as actual stat text on the
+page already (not blocked on Drive, since they were given directly):
+mobile load 6.9s → 1.0s, desktop PageSpeed 30s → 96–99, Google reviews
+58 → 103, active contracts 15 → 20.
 
 Flagged, not built, per the brief: a self-serve "Free Website Health
 Check" lead-magnet tool (see the HTML comment above the footer in

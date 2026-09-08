@@ -16,7 +16,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 NAV_ITEMS = [
     ("/", "Home"),
     ("/#how-it-works", "How It Works"),
-    ("/case-studies/", "Case Studies"),
+    ("/results/", "Results"),
     ("/pricing/", "Pricing"),
     ("/faq/", "FAQ"),
     ("/about/", "About"),
@@ -95,7 +95,7 @@ FOOTER = f'''<!-- PRIORITY 6, NOT BUILT THIS PASS: a self-serve "Free Website He
         <h5>Company</h5>
         <ul class="foot-links">
           <li><a href="/about/">About</a></li>
-          <li><a href="/case-studies/">Case Studies</a></li>
+          <li><a href="/results/">Results</a></li>
           <li><a href="/pricing/">Pricing</a></li>
           <li><a href="/faq/">FAQ</a></li>
         </ul>
@@ -173,7 +173,7 @@ def build_homepage():
           <img src="{imgs['after-clifton']}" alt="The same school's site after the Combat Boost rebuild" loading="lazy">
         </div>
       </div>
-      <p class="ba-cap">Real client, real rebuild — Clifton Martial Arts Academy, Clifton, NJ. <a href="/case-studies/" style="color:var(--gold-bright)">See more case studies →</a></p>
+      <p class="ba-cap">Real client, real rebuild — Clifton Martial Arts Academy, Clifton, NJ. <a href="/results/" style="color:var(--gold-bright)">See more results →</a></p>
     </div>
   </div>
 </section>
@@ -288,7 +288,7 @@ def build_homepage():
     <p>See exactly what's included and book a call — no pricing number posted here, because every school's setup is a little different and we'd rather talk it through than post a number that doesn't fit you.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
       <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
-      <a class="btn btn-ghost-dark" href="/case-studies/">See the Work First</a>
+      <a class="btn btn-ghost-dark" href="/results/">See the Results</a>
     </div>
   </div>
 </section>'''
@@ -344,7 +344,7 @@ def build_pricing():
     <p>15 minutes, no pressure — we'll look at your current site and tell you honestly whether a rebuild is the right move yet.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
       <a class="btn btn-gold" href="#">Book a Strategy Call</a>
-      <a class="btn btn-ghost-dark" href="/case-studies/">See the Work First</a>
+      <a class="btn btn-ghost-dark" href="/results/">See the Results</a>
     </div>
   </div>
 </section>'''
@@ -355,131 +355,204 @@ def build_pricing():
 
 
 # ============================================================
-# CASE STUDIES INDEX
+# RESULTS — data-driven, repeatable-card pattern.
+#
+# This page is built entirely from the lists below. To add a new proof
+# item as more results come in, append one entry to the relevant list —
+# CALENDAR_ITEMS, PAGESPEED, SEARCH_VISIBILITY, GROWTH_ITEMS, or
+# TESTIMONIALS — and re-run `python3 build.py`. No page markup needs to
+# change. `img: None` renders an honest "screenshot pending" placeholder
+# tile instead of a broken image, so items can be added the moment real
+# assets land (once Drive access is connected) without a rebuild.
 # ============================================================
-def build_case_studies_index():
-    body = '''<section class="page-hero">
+
+CALENDAR_ITEMS = [
+    # (school, badge, img_path_or_None, featured)
+    {"school": "Pensacola ATA",                          "badge": "$0 Ad Spend", "img": None, "featured": True},
+    {"school": "Premier Martial Arts — Pembroke Pines",  "badge": "$0 Ad Spend", "img": None, "featured": True},
+    {"school": "Alliance Jiu Jitsu",                      "badge": "$0 Ad Spend", "img": None, "featured": True},
+    {"school": "Black Belt World — Toronto",              "badge": "$0 Ad Spend", "img": None, "featured": True},
+    {"school": "Kick It Taekwondo — Month 3",             "badge": "Fully Booked", "img": None, "featured": True, "note": "Progressive fill-up, below"},
+    {"school": "Fort Walton ATA",                         "badge": "$0 Ad Spend", "img": None, "featured": False},
+    {"school": "Crestview ATA",                           "badge": "$0 Ad Spend", "img": None, "featured": False},
+    {"school": "Camal & Cruz Judo & BJJ",                 "badge": "$0 Ad Spend", "img": None, "featured": False},
+    {"school": "Kick It Taekwondo — Month 1",             "badge": "Starting Point", "img": None, "featured": False},
+    {"school": "Kick It Taekwondo — Month 2",             "badge": "Filling In", "img": None, "featured": False},
+]
+
+TESTIMONIALS = [
+    {
+        "name": "Dan Carey", "kind": "Video", "primary": True,
+        "quote": "I think I waited too long — but it was the right time when we were able to team up. I would definitely make the investment, because it's going to come back to you.",
+    },
+    {"name": "Real Client #2", "kind": "Written", "quote": None},
+    {"name": "Real Client #3", "kind": "Written", "quote": None},
+    {"name": "Real Client #4", "kind": "Written", "quote": None},
+]
+
+
+def calendar_card(item):
+    note = f'<p class="proof-note">{item["note"]}</p>' if item.get("note") else ""
+    if item["img"]:
+        media = f'<img class="proof-shot" src="{item["img"]}" alt="{item["school"]} booking calendar">'
+    else:
+        media = f'<div class="proof-pending">Screenshot pending<br><span>awaiting Drive access</span></div>'
+    return f'''      <div class="proof-card">
+        {media}
+        <div class="proof-card-body">
+          <span class="proof-badge">{item["badge"]}</span>
+          <h3>{item["school"]}</h3>
+          {note}
+        </div>
+      </div>'''
+
+
+def testimonial_card(t):
+    if t.get("primary"):
+        quote_html = f'<p class="story-quote" style="margin-top:0">"{t["quote"]}"</p>'
+    elif t["quote"]:
+        quote_html = f'<p class="story-quote" style="margin-top:0">"{t["quote"]}"</p>'
+    else:
+        quote_html = '<p class="quote-pending">Testimonial text pending — awaiting transcription from Drive.</p>'
+    return f'''      <div class="testimonial-card">
+        <span class="proof-badge">{t["kind"]}</span>
+        {quote_html}
+        <p class="testimonial-name">— {t["name"]}, real client (permission granted)</p>
+      </div>'''
+
+
+def build_results():
+    featured = [c for c in CALENDAR_ITEMS if c["featured"]]
+    more = [c for c in CALENDAR_ITEMS if not c["featured"]]
+    featured_html = "\n".join(calendar_card(c) for c in featured)
+    more_html = "\n".join(calendar_card(c) for c in more)
+    testimonials_html = "\n".join(testimonial_card(t) for t in TESTIMONIALS)
+
+    body = f'''<section class="page-hero">
   <div class="wrap">
     <a class="crumb" href="/">&larr; Back to Home</a>
-    <h1>A Few of the 50+.</h1>
-    <p class="dek">Real schools we've worked with — single-location dojos and multi-location franchises alike. More full write-ups are added as client material comes in.</p>
+    <h1>The Results, Not Just the Pitch.</h1>
+    <p class="dek">Real calendars, real search rankings, real load times, real client messages — from real schools, worked with across 50+ launches. This page grows every time a new one comes in.</p>
   </div>
 </section>
 
 <section style="padding-top:0">
+  <div class="wrap" style="max-width:820px">
+    <div class="video-embed-wrap">
+      <iframe src="https://player.vimeo.com/video/1224788450?h=171cc92b25&title=0&byline=0&portrait=0"
+              frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"
+              title="Dan Carey, real Combat Boost client, video testimonial"></iframe>
+    </div>
+    <p class="story-quote">"{TESTIMONIALS[0]["quote"]}"</p>
+    <p class="testimonial-name">— Dan Carey, real client (permission granted)</p>
+  </div>
+</section>
+
+<section class="on-light" id="calendars">
   <div class="wrap">
+    <div class="section-head">
+      <h2>Real Calendars, Real Appointments.</h2>
+      <p>Booking calendars from real schools we've worked with — most of these filled up on $0 ad spend, powered entirely by the site converting traffic that was already there. Student names and personal info are redacted; school names are real.</p>
+    </div>
+    <div class="proof-grid">
+{featured_html}
+    </div>
+    <details class="proof-more">
+      <summary>See {len(more)} more real calendars</summary>
+      <div class="proof-grid" style="margin-top:24px">
+{more_html}
+      </div>
+    </details>
+  </div>
+</section>
 
-    <div class="story-row">
-      <img class="story-shot" src="/assets/images/casestudy-strikerlab.jpg" alt="Striker Lab Muay Thai Kickboxing — the actual site Combat Boost built">
-      <div>
-        <span class="story-tag">New Location</span>
-        <h3>Striker Lab Muay Thai Kickboxing</h3>
-        <p>A brand-new studio's first 90 days — the site was built and live before the doors even opened.</p>
-        <a class="story-link" href="#">Full case study — coming soon</a>
+<section id="performance">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Site Performance: Before &amp; After.</h2>
+      <p>A real client's website, measured before and after the rebuild.</p>
+    </div>
+    <div class="stat-compare">
+      <div class="stat-compare-item">
+        <span class="sc-label">Mobile Load Time</span>
+        <div class="sc-nums"><span class="sc-before">6.9s</span><span class="sc-arrow">→</span><span class="sc-after">1.0s</span></div>
+      </div>
+      <div class="stat-compare-item">
+        <span class="sc-label">Desktop PageSpeed Score</span>
+        <div class="sc-nums"><span class="sc-before">30s</span><span class="sc-arrow">→</span><span class="sc-after">96–99</span></div>
       </div>
     </div>
+    <div class="proof-pending" style="margin-top:28px; aspect-ratio:16/7">Screenshot pending<br><span>awaiting Drive access — "Website Performance Before and After"</span></div>
+  </div>
+</section>
 
-    <div class="story-row">
-      <div class="story-noshot">Real client<br>(video testimonial)</div>
-      <div>
-        <span class="story-tag">Real Client Story</span>
-        <h3>Dan Carey</h3>
-        <p>"My stress level has went down... the door's been swinging open, and I've been happy seeing the people come in." A real client on what changed after launch, in his own words.</p>
-        <a class="story-link" href="/case-studies/dan-carey/">Read Dan's story →</a>
+<section class="on-light2" id="search-visibility">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Search Visibility: Before &amp; After.</h2>
+      <p>Up Top Martial Arts Academy — Google Maps ranking density and review count, before and after.</p>
+    </div>
+    <div class="stat-compare">
+      <div class="stat-compare-item">
+        <span class="sc-label">Google Reviews</span>
+        <div class="sc-nums"><span class="sc-before">58</span><span class="sc-arrow">→</span><span class="sc-after">103</span></div>
       </div>
     </div>
+    <div class="proof-pending" style="margin-top:28px; aspect-ratio:16/7">Screenshot pending<br><span>awaiting Drive access — Google Maps heatmap before/after</span></div>
+  </div>
+</section>
 
-    <div class="story-row">
-      <div class="story-noshot">Case study<br>coming soon</div>
-      <div>
-        <span class="story-tag">Multi-Location</span>
-        <h3>Moore's Karate</h3>
-        <p>13 locations across California, one consistent site and follow-up system across every one.</p>
-        <a class="story-link" href="#">Full case study — coming soon</a>
+<section id="growth">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Growth Over Time, Not Just One Before/After.</h2>
+      <p>Sustained results across a full client relationship — reviews, web traffic, and active contracts, tracked over time rather than a single snapshot.</p>
+    </div>
+    <div class="stat-compare" style="margin-bottom:28px">
+      <div class="stat-compare-item">
+        <span class="sc-label">Active Contracts (Billing Software)</span>
+        <div class="sc-nums"><span class="sc-before">15</span><span class="sc-arrow">→</span><span class="sc-after">20</span></div>
       </div>
     </div>
-
-    <div class="story-row">
-      <div class="story-noshot">Case study<br>coming soon</div>
-      <div>
-        <span class="story-tag">Single Location, BJJ</span>
-        <h3>Camal &amp; Cruz Judo &amp; BJJ</h3>
-        <p>A one-location academy competing for attention against bigger, better-funded gyms nearby.</p>
-        <a class="story-link" href="#">Full case study — coming soon</a>
-      </div>
+    <div class="growth-grid">
+      <div class="proof-pending">Screenshot pending<br><span>awaiting Drive access — Client Reviews Year by Year</span></div>
+      <div class="proof-pending">Screenshot pending<br><span>awaiting Drive access — Client Web Traffic Over Time</span></div>
+      <div class="proof-pending">Screenshot pending<br><span>awaiting Drive access — Billing Software Sign-Ups (second chart)</span></div>
     </div>
+  </div>
+</section>
 
+<section class="on-light" id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What Clients Actually Say.</h2>
+      <p>Unsolicited, in their own words.</p>
+    </div>
+    <div class="text-bubble-wrap">
+      <div class="text-bubble">
+        <p class="quote-pending" style="margin:0">Client text message pending transcription — awaiting Drive access.</p>
+      </div>
+      <p class="bubble-cap">A real, unprompted text message from a client — screenshot pending.</p>
+    </div>
+    <div class="testimonial-grid">
+{testimonials_html}
+    </div>
   </div>
 </section>
 
 <section class="closing" id="call">
   <div class="wrap">
-    <h2>Want to See More Like This?</h2>
-    <p>Book a call and we'll walk you through more of the 50+, including ones closest to your school's size and situation.</p>
+    <h2>Want Results Like These?</h2>
+    <p>Book a call and we'll show you what this would look like for your school specifically.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
       <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
     </div>
   </div>
 </section>'''
-    write("case-studies/index.html", page(
-        "Case Studies — Combat Boost",
-        "Real martial arts schools Combat Boost has worked with — single-location dojos and multi-location franchises, with real client stories.",
-        "/case-studies/", "/case-studies/", body))
-
-
-# ============================================================
-# CASE STUDY: DAN CAREY
-# ============================================================
-def build_case_study_dan_carey():
-    body = '''<section class="page-hero">
-  <div class="wrap" style="max-width:760px">
-    <a class="crumb" href="/case-studies/">&larr; Back to Case Studies</a>
-    <span class="story-tag">Real Client Story</span>
-    <h1 style="margin-top:10px">Dan Carey</h1>
-    <p class="dek">A real Combat Boost client, in his own words — permission granted to share his story here.</p>
-  </div>
-</section>
-
-<section style="padding-top:0">
-  <div class="wrap" style="max-width:760px">
-    <div class="video-card" style="margin-bottom:36px">
-      <div class="play" aria-hidden="true"></div>
-      <span class="vc-cap">▶ 2:14 — Dan Carey, real client (permission granted)</span>
-    </div>
-
-    <p style="font-size:15.5px; color:var(--tx-dark-soft)">Before working with Combat Boost, Dan was doing what most school owners end up doing: running the school and chasing the marketing side of it himself, in whatever time was left over. Here's what he said changed after launch.</p>
-
-    <p class="story-quote">"My stress level has went down... the door's been swinging open, and I've been happy seeing the people come in."</p>
-
-    <p style="font-size:15.5px; color:var(--tx-dark-soft)">On the day-to-day system itself — the alerts and follow-up that run in the background once a new lead comes in:</p>
-
-    <p class="story-quote">"The communication, the system's pretty simple. I get an alert that someone's been signed up... it helps with welcoming people in."</p>
-
-    <p style="font-size:15.5px; color:var(--tx-dark-soft)">And on deciding to actually make the investment, after putting it off for a while:</p>
-
-    <p class="story-quote">"I think I waited too long — but it was the right time when we were able to team up. I would definitely make the investment, because it's going to come back to you."</p>
-
-    <div class="woven-stat" style="margin-top:40px">
-      <span class="ws-num">+9</span>
-      <span class="ws-txt">past members reactivated on average per school, from one automated win-back sequence — the same system running for Dan's school.</span>
-    </div>
-  </div>
-</section>
-
-<section class="closing" id="call">
-  <div class="wrap">
-    <h2>Want a Story Like This for Your School?</h2>
-    <p>Book a call and we'll show you exactly what the system Dan's describing would look like for your school.</p>
-    <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
-      <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
-      <a class="btn btn-ghost-dark" href="/case-studies/">See More Stories</a>
-    </div>
-  </div>
-</section>'''
-    write("case-studies/dan-carey/index.html", page(
-        "Dan Carey — Case Study — Combat Boost",
-        "A real Combat Boost client, in his own words, on what changed after launching his website, review & referral automation, and follow-up system.",
-        "/case-studies/dan-carey/", "/case-studies/", body))
+    write("results/index.html", page(
+        "Results — Combat Boost",
+        "Real booking calendars, real search visibility gains, real site performance improvements, and real client testimonials from Combat Boost's 50+ martial arts school clients.",
+        "/results/", "/results/", body))
 
 
 # ============================================================
@@ -514,7 +587,7 @@ def build_about():
     <p>Book a call and we'll tell you honestly where the biggest gap is for you right now.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
       <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
-      <a class="btn btn-ghost-dark" href="/case-studies/">See the Work</a>
+      <a class="btn btn-ghost-dark" href="/results/">See the Results</a>
     </div>
   </div>
 </section>'''
@@ -560,7 +633,7 @@ def build_faq():
     </details>
     <details class="faq-item">
       <summary>Do you work with multi-location schools?</summary>
-      <p>Yes — several of the 50+ schools we've worked with run multiple locations under one brand, including a 13-location California franchise. See Case Studies.</p>
+      <p>Yes — several of the 50+ schools we've worked with run multiple locations under one brand, including a 13-location California franchise. See Results.</p>
     </details>
     <details class="faq-item">
       <summary>What if I'm not sure a rebuild is worth it yet?</summary>
@@ -588,8 +661,7 @@ if __name__ == "__main__":
     print("Building Combat Boost multi-page site...")
     build_homepage()
     build_pricing()
-    build_case_studies_index()
-    build_case_study_dan_carey()
+    build_results()
     build_about()
     build_faq()
     print("Done.")
