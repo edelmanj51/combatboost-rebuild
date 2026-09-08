@@ -142,20 +142,40 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
 }
 
 /* ---------- hero ---------- */
-.hero{padding:80px 0 100px; position:relative; overflow:hidden}
-.hero::before{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background:
-    radial-gradient(700px 420px at 82% -10%, rgba(201,151,43,.16), transparent 70%);
+/* Real-photo hero — a genuine training photo (not stock), dark scrim
+   graduated left-to-right so the headline sits fully legible on the left
+   while real photo detail stays visible on the right. */
+.hero{position:relative; overflow:hidden; padding:0}
+.hero-media{position:absolute; inset:0; z-index:0}
+.hero-media img{width:100%; height:100%; object-fit:cover; object-position:center 35%; display:block}
+.hero-scrim{
+  position:absolute; inset:0;
+  background:linear-gradient(100deg,
+    var(--ink) 0%, var(--ink) 32%,
+    rgba(21,19,15,.88) 46%, rgba(21,19,15,.5) 64%, rgba(21,19,15,.1) 88%);
 }
-.hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center; position:relative}
-@media (max-width:920px){ .hero-grid{grid-template-columns:1fr} }
-.hero h1{font-size:clamp(38px,5.4vw,64px); line-height:.98; margin:18px 0 22px}
-.hero h1 em{font-style:normal; color:var(--gold)}
-.hero .dek{font-size:18px; color:var(--tx-dark-soft); max-width:52ch; margin-bottom:34px}
-.hero .actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:30px}
-.hero .stat-line{font-size:14px; color:var(--tx-dark-soft)}
-.hero .stat-line b{color:var(--gold-bright); font-family:"IBM Plex Mono"}
+.hero-content{position:relative; z-index:1; padding:108px 0 76px; max-width:640px}
+@media (max-width:760px){
+  .hero-content{padding:88px 0 56px; max-width:100%}
+  .hero-scrim{background:linear-gradient(180deg, var(--ink) 0%, rgba(21,19,15,.9) 55%, rgba(21,19,15,.72) 100%)}
+}
+.hero h1{font-size:clamp(38px,5.4vw,60px); line-height:1.02; margin:0 0 22px}
+.hero h1 em{font-style:normal; color:var(--gold-bright)}
+.hero .dek{font-size:18px; color:var(--tx-dark-soft); max-width:50ch; margin-bottom:34px}
+.hero .actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px}
+.hero .btn-ghost-dark{border-color:rgba(244,239,228,.4)}
+
+/* Proof pills — near/over the photo, replacing the old floating stat
+   cards. Pill shape (full radius) is used only here, deliberately
+   distinct from the site's squarer button radius elsewhere. */
+.proof-pills{display:flex; gap:12px; flex-wrap:wrap}
+.proof-pill{
+  display:inline-flex; align-items:baseline; gap:9px;
+  background:rgba(244,239,228,.08); border:1px solid rgba(244,239,228,.22);
+  border-radius:100px; padding:11px 20px;
+}
+.pp-num{font-family:"Big Shoulders Display"; font-weight:800; font-size:21px; color:var(--gold-bright)}
+.pp-txt{font-size:13.5px; color:var(--tx-dark); font-weight:500}
 
 /* Real before/after — an actual client's old site next to the actual
    Combat Boost rebuild, in a plain browser-chrome frame. Replaces the
@@ -179,11 +199,12 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
   margin-bottom:9px; display:flex; align-items:center; gap:8px;
 }
 .ba-label.before{color:var(--tx-dark-soft)}
-.ba-label.after{color:var(--gold-bright)}
+.ba-label.after{color:var(--clay)}
 .ba-label .tag{width:16px; height:2px; background:currentColor; display:inline-block}
 .ba-after{margin-top:22px; margin-left:38px; position:relative; z-index:1}
-.ba-after .ba-frame{border-color:var(--gold); box-shadow:0 22px 50px rgba(0,0,0,.45)}
-.ba-cap{margin-top:14px; font-size:12.5px; color:var(--tx-dark-soft); font-family:"IBM Plex Mono"}
+.ba-after .ba-frame{border-color:var(--gold); box-shadow:0 22px 50px rgba(0,0,0,.3)}
+.ba-cap{margin-top:14px; font-size:12.5px; color:var(--tx-light-soft); font-family:"IBM Plex Mono"}
+.ba-cap a{color:var(--clay)}
 @media (max-width:920px){
   .ba-after{margin-left:0; margin-top:16px}
 }

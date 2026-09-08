@@ -146,34 +146,25 @@ def build_homepage():
     for key, fname in [
         ("before-clifton", "assets/images/before-clifton.jpg"),
         ("after-clifton", "assets/images/after-clifton.jpg"),
+        ("hero-training", "assets/images/hero-training.jpg"),
     ]:
         imgs[key] = f"/{fname}"
 
     body = f'''<section class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div>
-      <h1>Your Reviews Are Already<br>Bringing People In.<br><em>Your Website Is Losing Them.</em></h1>
-      <p class="dek">We build the website, the review &amp; referral system, and the follow-up that turns the traffic you already have into booked intro classes — before you spend another dollar on ads.</p>
-      <div class="actions">
-        <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
-        <a class="btn btn-ghost-dark" href="#how-it-works">See How It Works</a>
-      </div>
-      <p class="stat-line">Worked with <b>50+</b> martial arts schools. Real names, real numbers below ↓</p>
+  <div class="hero-media">
+    <img src="{imgs['hero-training']}" alt="Real students training at one of the martial arts schools Combat Boost has worked with" loading="eager">
+    <div class="hero-scrim"></div>
+  </div>
+  <div class="wrap hero-content">
+    <h1>The Leads Are Already Coming.<br>Your Website Keeps <em>Losing</em> Them.</h1>
+    <p class="dek">Most martial arts websites just sit there. We build ours to convert the traffic you're already getting — before you spend a dollar on ads. You teach. We fill the calendar.</p>
+    <div class="actions">
+      <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
+      <a class="btn btn-ghost-dark" href="#how-it-works">See How It Works</a>
     </div>
-    <div class="ba-compare">
-      <div class="ba-label before"><span class="tag"></span>Before — the school's actual old site</div>
-      <div class="ba-frame">
-        <div class="ba-chrome"><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-url">cliftonmartialarts.com</span></div>
-        <img src="{imgs['before-clifton']}" alt="A real client's old website before Combat Boost, live as of this build" loading="lazy">
-      </div>
-      <div class="ba-after">
-        <div class="ba-label after"><span class="tag"></span>After — built by Combat Boost</div>
-        <div class="ba-frame">
-          <div class="ba-chrome"><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-url">cliftonmartialarts.com</span></div>
-          <img src="{imgs['after-clifton']}" alt="The same school's site after the Combat Boost rebuild" loading="lazy">
-        </div>
-      </div>
-      <p class="ba-cap">Real client, real rebuild — Clifton Martial Arts Academy, Clifton, NJ. <a href="/results/" style="color:var(--gold-bright)">See more results →</a></p>
+    <div class="proof-pills">
+      <div class="proof-pill"><span class="pp-num">50+</span><span class="pp-txt">Schools Worked With</span></div>
+      <div class="proof-pill"><span class="pp-num">$0</span><span class="pp-txt">Ad Spend, Real Bookings</span></div>
     </div>
   </div>
 </section>
@@ -240,6 +231,22 @@ def build_homepage():
       </table>
     </div>
     <p style="margin-top:22px; font-size:14.5px; color:var(--tx-light-soft); max-width:60ch">On the "Follow-Up" row, in Dan Carey's own words: <i>"The communication, the system's pretty simple. I get an alert that someone's been signed up... it helps with welcoming people in."</i></p>
+
+    <div class="ba-compare" style="margin-top:56px; max-width:640px">
+      <div class="ba-label before"><span class="tag"></span>Before — the school's actual old site</div>
+      <div class="ba-frame">
+        <div class="ba-chrome"><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-url">cliftonmartialarts.com</span></div>
+        <img src="{imgs['before-clifton']}" alt="A real client's old website before Combat Boost, live as of this build" loading="lazy">
+      </div>
+      <div class="ba-after">
+        <div class="ba-label after"><span class="tag"></span>After — built by Combat Boost</div>
+        <div class="ba-frame">
+          <div class="ba-chrome"><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-url">cliftonmartialarts.com</span></div>
+          <img src="{imgs['after-clifton']}" alt="The same school's site after the Combat Boost rebuild" loading="lazy">
+        </div>
+      </div>
+      <p class="ba-cap">Real client, real rebuild — Clifton Martial Arts Academy, Clifton, NJ. <a href="/results/">See more results →</a></p>
+    </div>
   </div>
 </section>
 
