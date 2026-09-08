@@ -1,2 +1,7 @@
 .DS_Store
 node_modules/
+
+# Unredacted source screenshots pulled from Drive — contain real student
+# names/personal info before redaction. Never commit. The redacted, safe
+# versions actually used by the site live in assets/images/results/.
+raw-drive-assets/

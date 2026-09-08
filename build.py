@@ -367,17 +367,22 @@ def build_pricing():
 # ============================================================
 
 CALENDAR_ITEMS = [
-    # (school, badge, img_path_or_None, featured)
-    {"school": "Pensacola ATA",                          "badge": "$0 Ad Spend", "img": None, "featured": True},
-    {"school": "Premier Martial Arts — Pembroke Pines",  "badge": "$0 Ad Spend", "img": None, "featured": True},
-    {"school": "Alliance Jiu Jitsu",                      "badge": "$0 Ad Spend", "img": None, "featured": True},
-    {"school": "Black Belt World — Toronto",              "badge": "$0 Ad Spend", "img": None, "featured": True},
-    {"school": "Kick It Taekwondo — Month 3",             "badge": "Fully Booked", "img": None, "featured": True, "note": "Progressive fill-up, below"},
-    {"school": "Fort Walton ATA",                         "badge": "$0 Ad Spend", "img": None, "featured": False},
-    {"school": "Crestview ATA",                           "badge": "$0 Ad Spend", "img": None, "featured": False},
-    {"school": "Camal & Cruz Judo & BJJ",                 "badge": "$0 Ad Spend", "img": None, "featured": False},
-    {"school": "Kick It Taekwondo — Month 1",             "badge": "Starting Point", "img": None, "featured": False},
-    {"school": "Kick It Taekwondo — Month 2",             "badge": "Filling In", "img": None, "featured": False},
+    # (school, badge, img_path_or_None, featured) — all images real, pulled from the
+    # client's Drive folder and redacted (student names/personal info pixelated;
+    # school names, dates, and appointment density left intact).
+    {"school": "Pensacola ATA",                          "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-pensacola-1.png", "featured": True},
+    {"school": "Premier Martial Arts — Pembroke Pines",  "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-premier-pembroke.png", "featured": True},
+    {"school": "Alliance Jiu Jitsu",                      "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-alliance-jiujitsu.png", "featured": True},
+    {"school": "Black Belt World — Toronto",              "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-blackbelt-toronto.png", "featured": True},
+    {"school": "Kick It Taekwondo — August", "badge": "Fully Booked", "img": "/assets/images/results/calendar-kickit-august.png", "featured": True, "note": "Same school, 5 months later — see the March starting point below"},
+    {"school": "Kick It Taekwondo — March",  "badge": "Starting Point", "img": "/assets/images/results/calendar-kickit-march.png", "featured": False},
+    {"school": "Kick It Taekwondo — March (2nd calendar)",  "badge": "Starting Point", "img": "/assets/images/results/calendar-kickit-march-2.png", "featured": False},
+    {"school": "Kick It Taekwondo — August (2nd calendar)", "badge": "Fully Booked", "img": "/assets/images/results/calendar-kickit-august-2.png", "featured": False},
+    {"school": "Fort Walton ATA",                         "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-fortwalton.png", "featured": False},
+    {"school": "Crestview ATA",                           "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-crestview-1.png", "featured": False},
+    {"school": "Crestview ATA (2nd month)",               "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-crestview-2.png", "featured": False},
+    {"school": "Camal & Cruz Judo & BJJ",                 "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-camalcruz.png", "featured": False},
+    {"school": "Pensacola ATA (2nd month)",               "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-pensacola-2.png", "featured": False},
 ]
 
 TESTIMONIALS = [
@@ -385,9 +390,6 @@ TESTIMONIALS = [
         "name": "Dan Carey", "kind": "Video", "primary": True,
         "quote": "I think I waited too long — but it was the right time when we were able to team up. I would definitely make the investment, because it's going to come back to you.",
     },
-    {"name": "Real Client #2", "kind": "Written", "quote": None},
-    {"name": "Real Client #3", "kind": "Written", "quote": None},
-    {"name": "Real Client #4", "kind": "Written", "quote": None},
 ]
 
 
@@ -470,19 +472,19 @@ def build_results():
   <div class="wrap">
     <div class="section-head">
       <h2>Site Performance: Before &amp; After.</h2>
-      <p>A real client's website, measured before and after the rebuild.</p>
+      <p>A real client's website (a martial arts school in Middle River, MD), measured on Google PageSpeed Insights before and after the rebuild — mobile scores shown.</p>
     </div>
     <div class="stat-compare">
       <div class="stat-compare-item">
-        <span class="sc-label">Mobile Load Time</span>
+        <span class="sc-label">Mobile Load Time (First Contentful Paint)</span>
         <div class="sc-nums"><span class="sc-before">6.9s</span><span class="sc-arrow">→</span><span class="sc-after">1.0s</span></div>
       </div>
       <div class="stat-compare-item">
-        <span class="sc-label">Desktop PageSpeed Score</span>
-        <div class="sc-nums"><span class="sc-before">30s</span><span class="sc-arrow">→</span><span class="sc-after">96–99</span></div>
+        <span class="sc-label">Mobile Performance Score</span>
+        <div class="sc-nums"><span class="sc-before">31</span><span class="sc-arrow">→</span><span class="sc-after">99</span></div>
       </div>
     </div>
-    <div class="proof-pending" style="margin-top:28px; aspect-ratio:16/7">Screenshot pending<br><span>awaiting Drive access — "Website Performance Before and After"</span></div>
+    <img class="proof-wide" src="/assets/images/results/site-performance.png" alt="Google PageSpeed Insights score for a real client's site, before and after the Combat Boost rebuild" style="margin-top:28px">
   </div>
 </section>
 
@@ -497,8 +499,12 @@ def build_results():
         <span class="sc-label">Google Reviews</span>
         <div class="sc-nums"><span class="sc-before">58</span><span class="sc-arrow">→</span><span class="sc-after">103</span></div>
       </div>
+      <div class="stat-compare-item">
+        <span class="sc-label">Google Rating</span>
+        <div class="sc-nums"><span class="sc-before">4.9</span><span class="sc-arrow">→</span><span class="sc-after">5.0</span></div>
+      </div>
     </div>
-    <div class="proof-pending" style="margin-top:28px; aspect-ratio:16/7">Screenshot pending<br><span>awaiting Drive access — Google Maps heatmap before/after</span></div>
+    <img class="proof-wide" src="/assets/images/results/search-heatmap.png" alt="Up Top Martial Arts Academy's Google Maps ranking heatmap, before and after — more green pins, closer to the pin, means ranking higher for nearby searches" style="margin-top:28px">
   </div>
 </section>
 
@@ -506,18 +512,23 @@ def build_results():
   <div class="wrap">
     <div class="section-head">
       <h2>Growth Over Time, Not Just One Before/After.</h2>
-      <p>Sustained results across a full client relationship — reviews, web traffic, and active contracts, tracked over time rather than a single snapshot.</p>
+      <p>Sustained results across a full client relationship — reviews, web traffic, and new contracts signed, tracked over time rather than a single snapshot.</p>
     </div>
     <div class="stat-compare" style="margin-bottom:28px">
       <div class="stat-compare-item">
-        <span class="sc-label">Active Contracts (Billing Software)</span>
-        <div class="sc-nums"><span class="sc-before">15</span><span class="sc-arrow">→</span><span class="sc-after">20</span></div>
+        <span class="sc-label">Total Google Reviews, Reached in 2026</span>
+        <div class="sc-nums"><span class="sc-after">46</span></div>
+      </div>
+      <div class="stat-compare-item">
+        <span class="sc-label">Website Clicks From Google Business Profile, in 90 Days</span>
+        <div class="sc-nums"><span class="sc-after">128</span></div>
       </div>
     </div>
     <div class="growth-grid">
-      <div class="proof-pending">Screenshot pending<br><span>awaiting Drive access — Client Reviews Year by Year</span></div>
-      <div class="proof-pending">Screenshot pending<br><span>awaiting Drive access — Client Web Traffic Over Time</span></div>
-      <div class="proof-pending">Screenshot pending<br><span>awaiting Drive access — Billing Software Sign-Ups (second chart)</span></div>
+      <img class="proof-wide" src="/assets/images/results/growth-reviews.png" alt="Total Google reviews by year for a real client, climbing sharply in 2026">
+      <img class="proof-wide" src="/assets/images/results/growth-traffic.png" alt="Website clicks from a real client's Google Business Profile, June to August 2026">
+      <img class="proof-wide" src="/assets/images/results/growth-billing-1.png" alt="New contracts signed by month for a real client, peaking at 17 in July">
+      <img class="proof-wide" src="/assets/images/results/growth-billing-2.png" alt="New contracts signed by month for a second real client, peaking at 18 in May">
     </div>
   </div>
 </section>
@@ -530,9 +541,14 @@ def build_results():
     </div>
     <div class="text-bubble-wrap">
       <div class="text-bubble">
-        <p class="quote-pending" style="margin:0">Client text message pending transcription — awaiting Drive access.</p>
+        <p style="margin:0 0 4px">You're company is doing a fantastic job though btw</p>
+        <p style="margin:0; opacity:.85; font-size:12.5px">8:20 PM</p>
       </div>
-      <p class="bubble-cap">A real, unprompted text message from a client — screenshot pending.</p>
+      <div class="text-bubble" style="margin-top:8px">
+        <p style="margin:0 0 4px">We are very impressed</p>
+        <p style="margin:0; opacity:.85; font-size:12.5px">8:20 PM</p>
+      </div>
+      <p class="bubble-cap">A real, unprompted text message from a client (typo is theirs, left as sent).</p>
     </div>
     <div class="testimonial-grid">
 {testimonials_html}

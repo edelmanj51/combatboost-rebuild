@@ -70,25 +70,27 @@ change to add a new item:
 
 Then run `python3 build.py` and commit.
 
-### Once Google Drive access is connected
+### Redacting a new calendar screenshot before adding it
 
-Every screenshot referenced in the brief (12 calendar shots, the
-PageSpeed before/after, the Google Maps heatmap, the growth charts, the
-client text message, and 3 of the 4 written/video testimonials) is
-still a labeled placeholder — Drive wasn't authenticated in the session
-that built this. To finish the page:
+Every calendar screenshot on the Results page has been redacted with a
+consistent ImageMagick recipe: crop out the left nav sidebar, then
+pixelate everything below the day-of-week header row (leaves the school
+name/date/weekday labels crisp, makes every appointment name illegible).
+The always-run recipe, given a raw GHL calendar screenshot of width W
+and height H:
 
-1. Pull the real files from the Drive folder, redact any visible
-   student names/personal info in the calendar screenshots (school names
-   are fine to show), and drop them into `assets/images/`.
-2. In `build.py`, change each relevant `"img": None` to the real file
-   path in `CALENDAR_ITEMS`, and swap the `proof-pending` placeholder
-   `<div>`s in `build_results()` for real `<img>` tags for the
-   Performance/Visibility/Growth screenshots.
-3. Transcribe the real text-message screenshot's content into the
-   `.text-bubble` in `build_results()`, and the 3 additional written
-   testimonials' real quotes into `TESTIMONIALS`.
-4. Run `python3 build.py` and commit.
+```
+convert raw.png \
+  \( -clone 0 -crop $((W-170))x$((H-155))+170+155 +repage -scale 6% -scale 1667% \) \
+  -geometry +170+155 -compose over -composite \
+  -crop ${W}x${H}+170+0 +repage \
+  redacted.png
+```
+
+Raw, unredacted originals live in `raw-drive-assets/` locally (never
+committed — see `.gitignore`) alongside this exact pipeline; run it on
+a new screenshot, drop the result into `assets/images/results/`, and add
+one entry to `CALENDAR_ITEMS` in `build.py` per the pattern above.
 
 ## Deploying to Cloudflare Pages
 
@@ -109,22 +111,24 @@ site — see the banner at the top of every page. Real assets used so far:
 - About-section photo: a real photo from an actual Combat Boost client.
 - Results page video: a real, working Vimeo embed of Dan Carey's
   testimonial (permission granted), with his real pull-quotes as text
-  alongside it.
-
-**Blocked on Google Drive access** (not authenticated this session —
-run `/mcp` and connect "claude.ai Google Drive" to unblock): all 12
-calendar screenshots, the Site Performance before/after image, the
-Google Maps heatmap image, the 3 growth-over-time charts, the client
-text-message screenshot's actual content, and 3 of the 4
-written/video testimonials' actual quotes. Every one of these is a
-clearly labeled "pending" placeholder on the live page right now, not
-invented content — see "Once Google Drive access is connected" above
-for exactly how to finish each one.
-
-The real numbers you provided *were* used as actual stat text on the
-page already (not blocked on Drive, since they were given directly):
-mobile load 6.9s → 1.0s, desktop PageSpeed 30s → 96–99, Google reviews
-58 → 103, active contracts 15 → 20.
+  alongside it. **Note:** Vimeo's privacy settings only allow this embed
+  to render on whitelisted domains — it renders blank on `localhost`
+  during local preview; add the production domain in Vimeo's own embed
+  settings once deployed.
+- Results page — all 13 calendar screenshots, the Site Performance
+  before/after, the Google Maps heatmap, all 4 growth-over-time charts,
+  and the client text message are now real, pulled from the client's
+  Drive folder (redacted per the recipe above where needed). Only 1 real
+  testimonial (Dan Carey's) exists — the Drive folder contained one
+  client-text screenshot, not the 3 separate additional written
+  testimonials the original brief described, so no other testimonial
+  slots were fabricated to fill that gap.
+- A few stats were corrected against what the actual screenshots show,
+  rather than kept as the brief's approximate paraphrase: the PageSpeed
+  image shows *Mobile* scores (31→99), not Desktop; the reviews-over-time
+  chart peaks at 46 total in 2026 (not a clean "before→after" — the
+  underlying series isn't monotonic); the two contract-signing charts
+  peak at 17 and 18 respectively (not a single "15→20").
 
 Flagged, not built, per the brief: a self-serve "Free Website Health
 Check" lead-magnet tool (see the HTML comment above the footer in
