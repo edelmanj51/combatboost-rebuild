@@ -22,10 +22,16 @@ NAV_ITEMS = [
     ("/about/", "About"),
 ]
 
-LOGO_SVG = '''<svg width="{size}" height="{size}" viewBox="0 0 100 100" aria-hidden="true">
-        <path d="M50 6 L90 78 Q50 58 10 78 Z" fill="none" stroke="#C9972B" stroke-width="{sw}" stroke-linejoin="round"/>
-        <circle cx="50" cy="30" r="9" fill="#C9972B"/>
-      </svg>'''
+# Real logo mark (figure + upward arrow + growth-chart frame), pulled
+# directly from the live combatboost.ai site rather than redrawn — see
+# PROJECT.md's "Real logo asset" note. Native asset is 194x240 (w x h);
+# height is the only thing callers set, width follows the real ratio.
+LOGO_ASSET_RATIO = 194 / 240
+
+
+def logo_mark(height):
+    width = round(height * LOGO_ASSET_RATIO)
+    return f'<img src="/assets/images/logo-mark.png" alt="" width="{width}" height="{height}" aria-hidden="true">'
 
 
 def head(title, description, canonical_path):
@@ -47,24 +53,24 @@ def header(active_href):
     nav_links = "\n".join(links)
     return f'''<div class="concept-banner"><b>CONCEPT</b> — multi-page structure for internal review, built from the locked rebuild brief. Not the production site.</div>
 
-<div class="wrap">
-  <header>
+<header>
+  <div class="wrap header-inner">
     <a class="brand" href="/">
-      {LOGO_SVG.format(size=34, sw=7)}
+      {logo_mark(34)}
       <span class="brand-word">Combat<span>Boost</span></span>
     </a>
     <div class="header-actions">
       <nav class="main" id="main-nav">
-        <a class="btn btn-gold mobile-cta" href="/pricing/#call">Book a Strategy Call</a>
+        <a class="btn btn-primary mobile-cta" href="/pricing/#call">Book a Strategy Call</a>
 {nav_links}
       </nav>
-      <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
+      <a class="btn btn-primary" href="/pricing/#call">Book a Strategy Call</a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
-  </header>
-</div>'''
+  </div>
+</header>'''
 
 
 FOOTER = f'''<!-- PRIORITY 6, NOT BUILT THIS PASS: a self-serve "Free Website Health Check"
@@ -78,7 +84,7 @@ FOOTER = f'''<!-- PRIORITY 6, NOT BUILT THIS PASS: a self-serve "Free Website He
     <div class="foot-grid">
       <div class="foot-about">
         <div class="brand" style="margin-bottom:4px">
-          {LOGO_SVG.format(size=26, sw=8)}
+          {logo_mark(26)}
           <span class="brand-word">Combat<span>Boost</span></span>
         </div>
         <p>Websites, review &amp; referral automation, and AI follow-up — built exclusively for martial arts schools.</p>
@@ -147,11 +153,13 @@ def build_homepage():
     <h1>You're Not Losing to Competitors.<br>You're Losing Traffic You <em>Already Have</em>.</h1>
     <p class="dek">People are already searching for a school like yours. Your website, your follow-up, or your old leads are letting them walk. Fix that before you spend a dollar on ads.</p>
     <div class="actions">
-      <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
-      <a class="btn btn-ghost-dark" href="#how-it-works">See How It Works</a>
+      <a class="btn btn-primary" href="/pricing/#call">Book a Strategy Call</a>
+      <a class="btn btn-ghost-light" href="#how-it-works">See How It Works</a>
     </div>
     <div class="proof-pills">
       <div class="proof-pill"><span class="pp-num">50+</span><span class="pp-txt">Schools Worked With</span></div>
+      <div class="proof-pill"><span class="pp-num">50,000+</span><span class="pp-txt">Lead Conversations</span></div>
+      <div class="proof-pill"><span class="pp-num">48-Hour</span><span class="pp-txt">Launch</span></div>
     </div>
   </div>
 </section>
@@ -169,6 +177,62 @@ def build_homepage():
     </div>
   </div>
 </div>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>You Don't Have a Traffic Problem.<br>You Have a Conversion Problem.</h2>
+      <p>Here's what that actually looks like, day to day:</p>
+    </div>
+    <ul class="problem-list">
+      <li>A parent finds you on Google, opens your site on their phone, and leaves before it even loads.</li>
+      <li>You've got a school parents love, but only a handful of reviews to show for it.</li>
+      <li>A trial-class lead texts in at 9pm and doesn't hear back until you're free the next afternoon.</li>
+      <li>A member quits, and nobody ever reaches back out to see if they'd come back.</li>
+    </ul>
+    <p class="problem-closing">None of these are separate problems. They're the same traffic, falling through the same cracks — one after another.</p>
+  </div>
+</section>
+
+<section class="on-light" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>From First Call to Live Site, Here's Exactly What Happens.</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <span class="process-num">1</span>
+        <h3>Book a Strategy Call</h3>
+        <p>We look at your actual site and search presence, and tell you honestly where the biggest gap is.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-num">2</span>
+        <h3>We Build Your System</h3>
+        <p>Website, reviews &amp; referral automation, and follow-up — built and connected, live in as fast as 48 hours.</p>
+      </div>
+      <div class="process-step">
+        <span class="process-num">3</span>
+        <h3>Leads Start Converting</h3>
+        <p>You teach. The system follows up, requests reviews, and reactivates old leads — automatically.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="whats-included">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>One System. Four Connected Parts.</h2>
+    </div>
+    <div class="included-teaser">
+      <div class="included-teaser-item"><b>The Website</b> — built to convert, not just to look nice.</div>
+      <div class="included-teaser-item"><b>Reviews &amp; Referrals</b> — requested automatically, after every win.</div>
+      <div class="included-teaser-item"><b>Follow-Up &amp; Reactivation</b> — new leads and old leads, both handled in real time.</div>
+      <div class="included-teaser-item"><b>Managed Ads</b> <i>Optional</i> — once the foundation's converting, we'll run them for you.</div>
+    </div>
+    <p class="included-teaser-link"><a href="/pricing/">Full breakdown, plus what's included at every stage &rarr; See Pricing</a></p>
+  </div>
+</section>
 
 <section class="on-light" id="how-it-works">
   <div class="wrap">
@@ -231,12 +295,70 @@ def build_homepage():
   </div>
 </section>
 
+<section class="on-light" id="comparison">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Combat Boost vs. Typical Agency.</h2>
+    </div>
+    <div class="tableWrap">
+      <table class="baTable">
+        <thead>
+          <tr><th>Area</th><th>Combat Boost</th><th>Typical Agency</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Contract Terms</td>
+            <td class="cmp-us">No Long-Term Contracts</td>
+            <td class="cmp-them">Standard locked contracts</td>
+          </tr>
+          <tr>
+            <td>Pricing</td>
+            <td class="cmp-us">One flat monthly rate</td>
+            <td class="cmp-them">Custom quotes, scope creep</td>
+          </tr>
+          <tr>
+            <td>Built For</td>
+            <td class="cmp-us">Martial arts schools, exclusively</td>
+            <td class="cmp-them">Not specialized to your industry</td>
+          </tr>
+          <tr>
+            <td>Launch Speed</td>
+            <td class="cmp-us">48-Hour Launch</td>
+            <td class="cmp-them">Typically weeks to months</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="faq-summary">
+  <div class="wrap" style="max-width:820px">
+    <div class="section-head">
+      <h2>Quick Answers Before You Book.</h2>
+    </div>
+    <details class="faq-item">
+      <summary>Do I need to stop running ads?</summary>
+      <p>No — sequencing, not opposition. Fix the foundation first, then ads go further.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is there a contract?</summary>
+      <p>No long-term contracts.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How long does it take to launch?</summary>
+      <p>As fast as 48 hours from kickoff.</p>
+    </details>
+    <p class="included-teaser-link"><a href="/faq/">More questions? See the Full FAQ &rarr;</a></p>
+  </div>
+</section>
+
 <section class="closing" id="cta">
   <div class="wrap">
     <h2>Stop Losing Traffic<br>You Already Have.</h2>
     <p>One flat price, the whole sequence fixed — website, reviews, follow-up, reactivation. Ads only once that's actually converting.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
-      <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
+      <a class="btn btn-primary" href="/pricing/#call">Book a Strategy Call</a>
     </div>
   </div>
 </section>'''
@@ -312,7 +434,7 @@ def build_pricing():
 
     <div style="margin-top:56px; max-width:640px">
       <h2 style="font-size:26px">Why no number?</h2>
-      <p style="margin-top:14px; font-size:15.5px; color:var(--tx-light-soft)">Single-location schools, multi-location franchises, and schools coming off an existing website all need a slightly different scope of work — posting one flat number here would either overcharge the simple cases or undersell the complex ones. On the call, we'll tell you the real number for your specific school, honestly, before you commit to anything.</p>
+      <p style="margin-top:14px; font-size:15.5px; color:var(--tx-dark-soft)">Single-location schools, multi-location franchises, and schools coming off an existing website all need a slightly different scope of work — posting one flat number here would either overcharge the simple cases or undersell the complex ones. On the call, we'll tell you the real number for your specific school, honestly, before you commit to anything.</p>
     </div>
   </div>
 </section>
@@ -322,7 +444,7 @@ def build_pricing():
     <h2>Get Your Exact Number.</h2>
     <p>15 minutes, no pressure — we'll look at your current site and tell you honestly whether a rebuild is the right move yet.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
-      <a class="btn btn-gold" href="#">Book a Strategy Call</a>
+      <a class="btn btn-primary" href="#">Book a Strategy Call</a>
       <a class="btn btn-ghost-dark" href="/results/">See the Results</a>
     </div>
   </div>
@@ -540,7 +662,7 @@ def build_results():
     <h2>Want Results Like These?</h2>
     <p>Book a call and we'll show you what this would look like for your school specifically.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
-      <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
+      <a class="btn btn-primary" href="/pricing/#call">Book a Strategy Call</a>
     </div>
   </div>
 </section>'''
@@ -569,9 +691,9 @@ def build_about():
       <p class="about-cap">One of the 50+ schools we've worked with, mid-class.</p>
     </div>
     <div class="about-copy">
-      <p style="font-size:15.5px; color:var(--tx-light-soft)">A belt-testing schedule, a trial-class funnel, and a parent's decision process don't look like anything else we could serve instead — so rather than build a generic small-business playbook and put a karate photo on top of it, we only work in this one industry.</p>
-      <p style="font-size:15.5px; color:var(--tx-light-soft)">Everything on this site is built from what's actually worked across <span class="stat-inline">50+</span> real school launches — from single-location dojos to multi-location franchises. One system: the website, the review &amp; referral automation, and the follow-up, sold as one connected build, not separate add-ons.</p>
-      <p style="font-size:15.5px; color:var(--tx-light-soft)">The core belief behind how we sequence the work: most schools are already getting real traffic — from Google, from reviews, from word of mouth. The website's job is to actually convert that traffic before spending anything on ads to get more of it.</p>
+      <p style="font-size:15.5px; color:var(--tx-dark-soft)">A belt-testing schedule, a trial-class funnel, and a parent's decision process don't look like anything else we could serve instead — so rather than build a generic small-business playbook and put a karate photo on top of it, we only work in this one industry.</p>
+      <p style="font-size:15.5px; color:var(--tx-dark-soft)">Everything on this site is built from what's actually worked across <span class="stat-inline">50+</span> real school launches — from single-location dojos to multi-location franchises. One system: the website, the review &amp; referral automation, and the follow-up, sold as one connected build, not separate add-ons.</p>
+      <p style="font-size:15.5px; color:var(--tx-dark-soft)">The core belief behind how we sequence the work: most schools are already getting real traffic — from Google, from reviews, from word of mouth. The website's job is to actually convert that traffic before spending anything on ads to get more of it.</p>
     </div>
   </div>
 </section>
@@ -581,7 +703,7 @@ def build_about():
     <h2>Let's Talk About Your School.</h2>
     <p>Book a call and we'll tell you honestly where the biggest gap is for you right now.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
-      <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
+      <a class="btn btn-primary" href="/pricing/#call">Book a Strategy Call</a>
       <a class="btn btn-ghost-dark" href="/results/">See the Results</a>
     </div>
   </div>
@@ -642,7 +764,7 @@ def build_faq():
     <h2>Still Have a Question?</h2>
     <p>Ask it directly on a call — 15 minutes, no pressure.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
-      <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
+      <a class="btn btn-primary" href="/pricing/#call">Book a Strategy Call</a>
     </div>
   </div>
 </section>'''

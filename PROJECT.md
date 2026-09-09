@@ -13,9 +13,20 @@ override anything marked locked.
 - Combat Boost is an AI marketing agency working **exclusively** with
   martial arts schools. Flat pricing: **$297/month**. Legal entity: **JPE
   Enterprises** (site footer reads "JPE Enterprises LLC, DBA Combat Boost").
-- **51 real schools served** — always use **"50+ Schools"** as the headline
-  stat. Never substitute any other school-count number from any other
-  source, template, or estimate.
+- **Four confirmed stats — the only numbers/timeframes used anywhere on the
+  site:**
+  - **"50+ Schools Worked With"** (51 real schools served). Never
+    substitute any other school-count number.
+  - **"50,000+ Lead Conversations"** — conversations handled with leads,
+    not a claim about leads acquired or ad spend. Do not blur this
+    distinction in copy.
+  - **"48-Hour Launch"** — confirmed real average/typical kickoff-to-live
+    turnaround. The earlier "72 hours" figure is superseded — never use it.
+  - **"No Long-Term Contracts"** — real, qualitative. Use specifically in
+    the Comparison table's Contract Terms row, not as a 4th hero stat-pill
+    (would be redundant with the 3-stat hero bar below).
+  Do not use any number, timeframe, or claim beyond these four anywhere on
+  the site.
 - **6 named client logos**, in this exact order: Premier Martial Arts, ATA
   (American Taekwondo Association), Moore's Karate, Ahn's Taekwondo Academy,
   Camal and Cruz Judo & BJJ, Striker Lab Muay Thai Kickboxing.
@@ -48,6 +59,17 @@ override anything marked locked.
   add a price display or a pricing-gated lead form without an explicit,
   separate request — that's future work requiring form/backend handling
   outside this repo's current static-HTML, no-interactivity scope.
+- **Real logo asset**: pulled directly from the live production site
+  (combatboost.ai) rather than redrawn. Full lockup (mark + wordmark) saved
+  locally at `/tmp/logo-cropped.png` during extraction; the icon mark alone
+  (figure + upward arrow + growth-chart frame, black + brand blue,
+  transparent background) lives in the repo at
+  `assets/images/logo-mark.png`. The wordmark text ("CombatBoost.ai") stays
+  live HTML/CSS type in `build.py`'s `LOGO_SVG`/header markup for
+  responsive sizing — only the pictorial mark is the real asset; typesetting
+  the wordmark in the site's own web font is not "redrawing the logo."
+  A full redraw/vectorization of the mark itself remains separate, future,
+  unstarted work.
 
 ## Positioning (locked)
 
@@ -60,9 +82,20 @@ reactivation of anyone who didn't convert → THEN paid ads make sense**,
 because ads just amplify whatever conversion rate already exists. Bad
 foundation + paid traffic = more traffic converting at the same low rate.
 
-## Visual System (locked — extracted from Academy Blast's live site, adapted)
+## Visual System
 
-- **Palette**: near-black + gold/amber accent. NOT navy. NOT purple/violet.
+- **Palette (changed — see history note below)**: **white/light is now the
+  dominant background across the site.** Near-black is reserved for
+  contrast bands only — nav bar, logo trust-bar strip, footer, and at most
+  one deliberate dark section per page for rhythm (mirrors Academy Blast's
+  own real pattern: mostly light, dark used sparingly for specific bands,
+  never as the base theme). Accent color: **blue** — sampled directly from
+  the real logo asset, `#1163B7` (a rich, medium-dark blue; deliberately
+  not a bright/saturated "tech" blue). A lighter `--blue-bright` variant
+  exists for emphasis text on dark bands, the same role `--gold-bright`
+  used to play. **No gold/amber anywhere. No purple/violet, ever** (that
+  rule never changed). Text: dark/near-black on light sections, light/white
+  on dark contrast bands.
 - **Layout**: single container, max-width ~1216px (`.wrap`), all-flexbox —
   no CSS grid.
 - **Section rhythm**: `80px 0` padding on standard content sections (see
@@ -74,32 +107,47 @@ foundation + paid traffic = more traffic converting at the same low rate.
   with **negative letter-spacing** (`-.02em` sitewide — deliberately gentler
   than Academy Blast's literal ratio since Big Shoulders is already
   condensed; going tighter starts crowding the caps). Nav links are
-  **mixed-case, never uppercase**.
+  **mixed-case, never uppercase**. Unchanged by the color-system update.
 - **Border-radius discipline**: `0px` everywhere — sections, cards,
   containers, tables — **except** buttons (fully round), pill/proof
   components (`20px`, not fully round), and small circular icon/avatar
   badges (fully round — e.g. the `/pricing` included-list icons; same
   logic as Academy Blast's own round pill-avatar). No exceptions beyond
-  these three without flagging it first.
+  these three without flagging it first. Unchanged by the color-system
+  update.
 - **Shadow discipline**: exactly one subtle shadow style exists sitewide,
   used only on the pill/proof component. No shadows on buttons, cards, or
-  anything else.
-- **No hero photo** (per the photography limitation above) — hero visual
-  weight comes from a real, verified stat-pill row instead. Currently: a
-  single pill, "50+ Schools Worked With" — do not add a second pill unless
-  a genuinely new, verified, company-wide aggregate becomes available.
+  anything else. Unchanged by the color-system update.
+- **Hero visual weight**: no large real-photo hero treatment (per the
+  photography limitation above) — carried instead by a real, verified
+  stat-pill row. **Now 3 pills**: "50+ Schools Worked With," "50,000+ Lead
+  Conversations," "48-Hour Launch," in that order. "No Long-Term Contracts"
+  does **not** get a 4th pill — it lives in the Comparison table's Contract
+  Terms row instead, to avoid redundancy.
+
+### History note — near-black+gold → white+blue
+
+The site launched this rebuild on a near-black+gold palette (extracted and
+adapted from Academy Blast, locked across many earlier rounds). That
+palette is now retired sitewide in favor of white-primary+blue, to align
+with Combat Boost's actual real brand (the live combatboost.ai logo is
+black + blue, not gold). Nothing else in the Visual System section changed
+— container, spacing, typography, radius, and shadow discipline all carry
+over unchanged; only the color values themselves are different.
 
 ## Ban List (applies everywhere, always)
 
 No emoji as UI decoration. No clip-art or generic AI-style illustrations.
-No purely decorative card/button borders. No purple/violet accent. No
-ALL-CAPS on nav links or body copy (headlines are the confirmed exception).
-No oversized or baseline-misaligned decorative icons. No middle-dot-joined
-label strings ("Label A · Label B · Label C"). No generic uniform
-"SaaS-card-kit" look (identical rounded cards, one border-radius everywhere,
-matching soft grey drop-shadows on every card, gradient washes as pure
-decoration). Never use any stat, client count, years-in-business, or number
-sourced from an unrelated business/template — only the verified facts above.
+No purely decorative card/button borders. **No purple/violet accent. No
+gold/amber anywhere** (retired along with the old palette — see history
+note above). No ALL-CAPS on nav links or body copy (headlines are the
+confirmed exception). No oversized or baseline-misaligned decorative icons.
+No middle-dot-joined label strings ("Label A · Label B · Label C"). No
+generic uniform "SaaS-card-kit" look (identical rounded cards, one
+border-radius everywhere, matching soft grey drop-shadows on every card,
+gradient washes as pure decoration). Never use any stat, client count,
+years-in-business, or number sourced from an unrelated business/template —
+only the four confirmed facts above.
 
 ## Current Site Structure (as of this file's last update)
 
@@ -109,25 +157,35 @@ around each page's body and writes flat HTML into the repo; Cloudflare
 Pages serves those files as-is (Framework preset: None, no build command,
 output directory `/`).
 
-- `/` — Homepage, exactly 5 sections: hero (no photo, single stat-pill) →
-  logo trust bar → before/after sequencing table (Website / Reviews &
-  Referrals / Follow-Up / Reactivation) → testimonial (Dan Carey video +
-  quote) → final CTA. Do not add a 6th section without flagging it first —
-  this count was deliberately capped, including against Academy Blast's own
-  real page having 13 sections.
+**Done**: the white-primary/blue-accent color system and the real logo
+asset are live across all 5 existing pages (see the color-system history
+note above). **Still pending**: the homepage section count is expanding
+from 5 to 10 — Hero → Logo Trust Bar → Problem → 3-Step Process → What's
+Included → Before/After Table → Testimonial → Comparison (Combat Boost vs.
+Typical Agency) → FAQ (summary) → Final CTA — plus a new **Blog** page.
+This is a deliberate reversal of the earlier "keep it to 5, don't pad it
+out to match a competitor" decision — flagged and confirmed with the site
+owner before building, given how much weight that earlier decision carried.
+Copy for the 5 new sections is being drafted for review before any layout
+code is written (per standing instruction on this task) — do not build
+these sections' HTML/CSS until that copy is approved. The Blog will carry
+general educational content only — no fabricated stats or client stories;
+every claim on it must still trace to the four confirmed facts above.
+
+- `/` — Homepage (expanding to 10 sections per above).
 - `/pricing/` — What's included, no price shown, "Book a Strategy Call" CTA.
+  Included-list carries a small round icon per row (NextKick-derived craft
+  pass — icon style/sizing documented in the border-radius exception
+  above).
 - `/results/` — All the real proof assets listed above, data-driven from
   `CALENDAR_ITEMS` / `TESTIMONIALS` lists in `build.py`.
 - `/about/` — Company story, one real client photo.
-- `/faq/` — Static Q&A.
+- `/faq/` — Static Q&A (homepage gets a shorter FAQ *summary* section
+  linking here — do not duplicate the full list on the homepage).
+- `/blog/` — New, in progress.
 
-`/pricing`'s included-list now carries a small round icon per row (added
-via a targeted craft pass, spec extracted from NextKick's real feature-grid
-component — icon style, sizing, and alignment documented in the
-border-radius exception above). There is otherwise still **no icon-based
-feature/benefit card grid anywhere on the site** — the homepage's
-feature-strip from an earlier round remains dead CSS, unused, deliberately
-plain text with no icon boxes.
+"How It Works" is a **homepage anchor** (`/#how-it-works`), not a separate
+page — do not treat it as one when building nav or footer links.
 
 ## Instruction for All Future Sessions
 

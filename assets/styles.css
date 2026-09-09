@@ -1,25 +1,42 @@
 :root{
-  --ink:        #15130F;
-  --ink-2:      #1D1912;
-  --ink-3:      #2B2418;
-  --line-dark:  #362F21;
-  --gold:       #C9972B;
-  --gold-bright:#E8B94E;
-  --clay:       #A5432E;
-  --good:       #6B8F5A;
-  --cream:      #F4EFE4;
-  --cream-2:    #EBE2CC;
-  --line-light: #DCD1B4;
-  --tx-dark:      #F4EFE4;
-  --tx-dark-soft: #B7AFA0;
-  --tx-light:      #17140F;
-  --tx-light-soft: #5C5648;
-  color-scheme: dark;
-  background:var(--ink);
+  /* Dark contrast bands only — nav, logo trust-bar, footer, the one
+     deliberate dark closing-CTA section. White/light is the dominant
+     background everywhere else (see PROJECT.md's color-system history
+     note: retired the earlier near-black-default+gold palette in favor
+     of this, to match the real combatboost.ai brand). */
+  --ink:        #0E1116;
+  --ink-2:      #171B21;
+  --ink-3:      #20252D;
+  --line-dark:  #2B313B;
+
+  /* Primary light system — the default everywhere outside the dark bands */
+  --paper:      #FFFFFF;
+  --paper-2:    #F4F6F9;
+  --line-light: #E2E6EB;
+
+  /* Accent — sampled directly from the real logo asset. No gold/amber,
+     no purple/violet, ever. */
+  --blue:        #1163B7;
+  --blue-bright: #2E86D6;
+  --blue-deep:   #0C4A8A;
+
+  /* Semantic (separate from the brand accent — before/after marks only) */
+  --good: #4C8B5B;
+  --bad:  #C6433B;
+
+  /* Text — dark pair is the default (light bg everywhere); light pair is
+     used only inside the dark bands. */
+  --tx-dark:       #12151A;
+  --tx-dark-soft:  #5B6470;
+  --tx-light:      #F4F6F8;
+  --tx-light-soft: #A6ACB5;
+
+  color-scheme: light;
+  background:var(--paper);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0; background:var(--ink); font-family:"IBM Plex Sans",system-ui,sans-serif; color:var(--tx-dark); line-height:1.55}
+body{margin:0; background:var(--paper); font-family:"IBM Plex Sans",system-ui,sans-serif; color:var(--tx-dark); line-height:1.55}
 /* Negative tracking on every uppercase headline — tighter as size grows,
    found on Academy Blast (~-0.6px at 20px scaling to ~-2px at 65px, a
    near-constant -3% em ratio). We use a slightly gentler -2% em since Big
@@ -39,55 +56,64 @@ img,svg{display:block}
 .btn{
   display:inline-flex; align-items:center; gap:8px; font-family:"IBM Plex Sans"; font-weight:700;
   font-size:15px; letter-spacing:-.01em; padding:15px 32px; border-radius:999px; cursor:pointer; border:1px solid transparent;
-  text-decoration:none; transition:transform .15s ease, opacity .15s ease;
+  text-decoration:none; transition:transform .15s ease, opacity .15s ease, background-color .15s ease;
 }
 .btn:hover{transform:translateY(-1px)}
-.btn-gold{background:var(--gold); color:var(--ink)}
-.btn-gold:hover{background:var(--gold-bright)}
-.btn-ghost-dark{border-color:var(--line-dark); color:var(--tx-dark)}
-.btn-ghost-dark:hover{border-color:var(--gold)}
-.btn-ghost-light{border-color:var(--tx-light); color:var(--tx-light)}
+.btn-primary{background:var(--blue); color:#fff}
+.btn-primary:hover{background:var(--blue-deep)}
+/* On-light system already; both ghost variants exist for the two
+   contexts they actually get used in: dark bands (nav/closing/footer)
+   and light content (hero, most sections). */
+.btn-ghost-dark{border-color:rgba(244,246,248,.3); color:var(--tx-light)}
+.btn-ghost-dark:hover{border-color:var(--blue-bright); color:var(--blue-bright)}
+.btn-ghost-light{border-color:var(--line-light); color:var(--tx-dark)}
+.btn-ghost-light:hover{border-color:var(--blue); color:var(--blue)}
 .lede{font-size:15.5px; color:var(--tx-dark-soft); max-width:56ch; margin-bottom:10px}
-.on-light .lede, .on-light2 .lede{color:var(--tx-light-soft)}
 section{padding:96px 0}
 @media (max-width:640px){ section{padding:64px 0} }
 .section-head{max-width:640px; margin-bottom:48px}
 .section-head h2{font-size:clamp(28px,3.6vw,42px); line-height:1.05}
-.section-head p{margin-top:16px; font-size:16.5px}
-.on-light{background:var(--cream); color:var(--tx-light)}
-.on-light2{background:var(--cream-2); color:var(--tx-light)}
+.section-head p{margin-top:16px; font-size:16.5px; color:var(--tx-dark-soft)}
+/* Alternate light shade for section-rhythm — same role Academy Blast's
+   own alternating white/off-white-grey sections play. No text-color flip
+   needed anymore since dark-on-light is already the sitewide default. */
+.on-light{background:var(--paper-2)}
+.on-light2{background:var(--paper-2)}
 
 /* ---------- concept banner ---------- */
 .concept-banner{
-  background:var(--ink-3); color:var(--tx-dark-soft); font-family:"IBM Plex Mono",monospace;
+  background:var(--ink-3); color:var(--tx-light-soft); font-family:"IBM Plex Mono",monospace;
   font-size:12px; text-align:center; padding:9px 14px; letter-spacing:.03em;
 }
-.concept-banner b{color:var(--gold)}
+.concept-banner b{color:var(--blue-bright)}
 
 /* ---------- header ---------- */
-header{
-  display:flex; align-items:center; justify-content:space-between; padding:20px 0;
-  border-bottom:1px solid var(--line-dark);
+/* Dark contrast band, full-bleed — header itself carries the background
+   so it spans edge-to-edge; .header-inner reuses .wrap to center content. */
+header{background:var(--ink)}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between; padding:20px 32px;
 }
+@media (max-width:640px){ .header-inner{padding:20px} }
 .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
-.brand-word{font-family:"Big Shoulders Display"; font-weight:800; font-size:22px; letter-spacing:.01em; color:var(--tx-dark)}
-.brand-word span{color:var(--gold)}
+.brand-word{font-family:"Big Shoulders Display"; font-weight:800; font-size:22px; letter-spacing:.01em; color:var(--tx-light)}
+.brand-word span{color:var(--blue-bright)}
 .header-actions{display:flex; align-items:center; gap:18px}
 nav.main{display:flex; align-items:center; gap:34px; font-size:14.5px; font-weight:500}
-nav.main a{text-decoration:none; color:var(--tx-dark-soft)}
-nav.main a:hover, nav.main a[aria-current="page"]{color:var(--tx-dark)}
-nav.main a[aria-current="page"]{color:var(--gold-bright)}
+nav.main a{text-decoration:none; color:var(--tx-light-soft)}
+nav.main a:hover, nav.main a[aria-current="page"]{color:var(--tx-light)}
+nav.main a[aria-current="page"]{color:var(--blue-bright)}
 .nav-toggle{
   display:none; flex-direction:column; justify-content:center; gap:5px; width:34px; height:34px;
   background:none; border:none; cursor:pointer; padding:0;
 }
-.nav-toggle span{width:100%; height:2px; background:var(--tx-dark); display:block}
+.nav-toggle span{width:100%; height:2px; background:var(--tx-light); display:block}
 .mobile-cta{display:none}
 @media (max-width:640px){
   /* The persistent header CTA collides with the wordmark below ~640px —
      hide it there and surface the same CTA as the first item inside the
      mobile nav panel instead, so it's still one tap away, every page. */
-  .header-actions > a.btn-gold{display:none}
+  .header-actions > a.btn-primary{display:none}
   .mobile-cta{
     display:block; text-align:center; margin-bottom:14px; width:100%;
     order:-1;
@@ -103,7 +129,7 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
   nav.main a{padding:12px 0; width:100%; border-bottom:1px solid var(--line-dark)}
   nav.main a:last-child{border-bottom:none}
   .nav-toggle{display:flex}
-  header{position:relative}
+  .header-inner{position:relative}
 }
 
 /* ---------- interior page hero (dedicated pages, not the homepage) ---------- */
@@ -112,18 +138,17 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
   font-family:"IBM Plex Mono"; font-size:12.5px; color:var(--tx-dark-soft); text-decoration:none;
   display:inline-flex; align-items:center; gap:6px; margin-bottom:20px;
 }
-.crumb:hover{color:var(--gold-bright)}
+.crumb:hover{color:var(--blue)}
 .page-hero h1{font-size:clamp(32px,4.6vw,52px); line-height:1.02; margin-bottom:16px}
 .page-hero .dek{font-size:17px; color:var(--tx-dark-soft); max-width:60ch}
 
 /* ---------- included list (pricing) — icon + label per row ---------- */
 /* Icon treatment adapted from NextKick's feature-grid component (real
    extraction: 40px circle, 10%-opacity brand-tint fill, 20px line icon,
-   transition-colors only — no border, no shadow, no lift). Translated to
-   Combat Boost's gold accent and its own radius discipline: the circle is
-   a deliberate exception alongside buttons (small round icon/avatar
-   badges, same logic as Academy Blast's own round pill-avatar), not a
-   card — the row itself keeps 0px radius, no border, no shadow. */
+   transition-colors only — no border, no shadow, no lift). The circle is
+   a deliberate radius exception alongside buttons (small round icon/
+   avatar badges, same logic as Academy Blast's own round pill-avatar),
+   not a card — the row itself keeps 0px radius, no border, no shadow. */
 .included-list{border-top:1px solid var(--line-light)}
 .included-item{
   display:grid; grid-template-columns:200px 1fr; gap:24px; padding:26px 0; border-bottom:1px solid var(--line-light);
@@ -133,85 +158,122 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
 .included-icon{
   width:40px; height:40px; border-radius:50%; flex-shrink:0;
   display:flex; align-items:center; justify-content:center;
-  background:rgba(201,151,43,.12); transition:background-color .15s ease;
+  background:rgba(17,99,183,.1); transition:background-color .15s ease;
 }
-.included-item:hover .included-icon{background:rgba(201,151,43,.2)}
-.included-icon svg{width:20px; height:20px; color:var(--gold)}
-.included-item h3{font-size:18px; text-transform:none; color:var(--tx-light)}
-.included-item p{font-size:14.5px; color:var(--tx-light-soft); margin-top:6px}
-.included-item .tag-optional{font-family:"IBM Plex Mono"; font-size:11px; color:var(--clay); text-transform:uppercase}
+.included-item:hover .included-icon{background:rgba(17,99,183,.18)}
+.included-icon svg{width:20px; height:20px; color:var(--blue)}
+.included-item h3{font-size:18px; text-transform:none; color:var(--tx-dark)}
+.included-item p{font-size:14.5px; color:var(--tx-dark-soft); margin-top:6px}
+.included-item .tag-optional{font-family:"IBM Plex Mono"; font-size:11px; color:var(--blue); text-transform:uppercase}
 
 /* ---------- case-study index: story rows, not a card grid ---------- */
 .story-row{
-  display:grid; grid-template-columns:280px 1fr; gap:36px; padding:36px 0; border-bottom:1px solid var(--line-dark);
+  display:grid; grid-template-columns:280px 1fr; gap:36px; padding:36px 0; border-bottom:1px solid var(--line-light);
   align-items:center;
 }
 .story-row:first-child{padding-top:0}
 @media (max-width:760px){ .story-row{grid-template-columns:1fr} }
-.story-shot{width:100%; aspect-ratio:16/11; object-fit:cover; object-position:top; border-top:3px solid var(--gold)}
+.story-shot{width:100%; aspect-ratio:16/11; object-fit:cover; object-position:top; border-top:3px solid var(--blue)}
 .story-noshot{
-  width:100%; aspect-ratio:16/11; background:var(--ink-2); border-top:3px solid var(--gold);
+  width:100%; aspect-ratio:16/11; background:var(--paper-2); border-top:3px solid var(--blue);
   display:flex; align-items:center; justify-content:center; font-family:"IBM Plex Mono"; font-size:12px; color:var(--tx-dark-soft); text-align:center; padding:20px;
 }
-.story-tag{display:block; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.05em; color:var(--gold-bright); text-transform:uppercase}
+.story-tag{display:block; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.05em; color:var(--blue); text-transform:uppercase}
 .story-row h3{font-size:22px; margin-top:8px; text-transform:none}
 .story-row p{font-size:14.5px; color:var(--tx-dark-soft); margin-top:10px; max-width:56ch}
-.story-link{font-family:"IBM Plex Mono"; font-size:12.5px; color:var(--gold-bright); text-decoration:none; margin-top:14px; display:inline-block; border-bottom:1px solid var(--gold-bright)}
+.story-link{font-family:"IBM Plex Mono"; font-size:12.5px; color:var(--blue); text-decoration:none; margin-top:14px; display:inline-block; border-bottom:1px solid var(--blue)}
 
 /* ---------- individual case-study detail page ---------- */
 .story-quote{
-  border-left:2px solid var(--gold); padding-left:24px; margin:28px 0;
+  border-left:2px solid var(--blue); padding-left:24px; margin:28px 0;
   font-family:"Big Shoulders Display"; font-weight:600; font-size:clamp(19px,2.2vw,24px); line-height:1.32; text-transform:none;
   color:var(--tx-dark);
 }
 
 /* ---------- hero ---------- */
-/* No photo — very little real client/school photography exists, and a
-   faded-photo treatment (Academy Blast's own trick) only reads as
-   restraint on their all-neutral palette, not ours. The stat-pill row
-   below carries the hero's visual weight instead. Asymmetric top/bottom
-   padding mirrors Academy Blast's real hero rhythm (heavier top, lighter
-   bottom) rather than the centered padding used on interior page-heroes. */
-.hero{background:var(--ink); padding:0}
+/* Light, not dark — white/light is now the site's default background;
+   near-black is reserved for the nav/logo-strip/footer/closing bands
+   only. No photo — very little real client/school photography exists,
+   so the stat-pill row carries the hero's visual weight instead.
+   Asymmetric top/bottom padding mirrors Academy Blast's real hero rhythm
+   (heavier top, lighter bottom). */
+.hero{background:var(--paper); padding:0}
 .hero-content{padding:104px 0 84px; max-width:720px}
 @media (max-width:760px){
   .hero-content{padding:76px 0 56px}
 }
-.hero h1{font-size:clamp(36px,5.6vw,64px); line-height:1.02; margin:0 0 22px}
-.hero h1 em{font-style:normal; color:var(--gold-bright)}
+.hero h1{font-size:clamp(36px,5.6vw,64px); line-height:1.02; margin:0 0 22px; color:var(--tx-dark)}
+.hero h1 em{font-style:normal; color:var(--blue)}
 .hero .dek{font-size:18px; color:var(--tx-dark-soft); max-width:52ch; margin-bottom:34px}
 .hero .actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px}
-.hero .btn-ghost-dark{border-color:rgba(244,239,228,.4)}
 
 /* Proof pills carry the hero's visual weight in place of a photo. Pill
    shape (20px radius, not fully round — matches the reference site's
    actual pill-capsule radius) and the one soft shadow used anywhere on
-   the site both live here, deliberately reserved to this one component. */
+   the site both live here, deliberately reserved to this one component.
+   Now on a light hero: subtle dark-tinted glass instead of the old
+   light-tinted-on-dark treatment, same restraint. */
 .proof-pills{display:flex; gap:12px; flex-wrap:wrap}
 .proof-pill{
   display:inline-flex; align-items:baseline; gap:9px;
-  background:rgba(244,239,228,.08); border:1px solid rgba(244,239,228,.22);
+  background:var(--paper-2); border:1px solid var(--line-light);
   border-radius:20px; padding:14px 22px;
-  box-shadow:inset 0 1px 0 rgba(244,239,228,.06), 0 10px 26px rgba(0,0,0,.35);
+  box-shadow:0 1px 2px rgba(16,24,32,.04), 0 10px 26px rgba(16,24,32,.08);
 }
-.pp-num{font-family:"Big Shoulders Display"; font-weight:800; font-size:21px; color:var(--gold-bright)}
+.pp-num{font-family:"Big Shoulders Display"; font-weight:800; font-size:21px; color:var(--blue)}
 .pp-txt{font-size:13.5px; color:var(--tx-dark); font-weight:500}
 
+/* ---------- problem section ---------- */
+/* Concrete, observable symptoms — not abstract complaints (Academy
+   Blast's own problem-framing pattern). Small dash-marker reuses the
+   same line-marker device already established on .ba-label .tag, rather
+   than introducing a new icon or bullet style. */
+.problem-list{list-style:none; margin:8px 0 0; padding:0; border-top:1px solid var(--line-light)}
+.problem-list li{
+  padding:20px 0 20px 26px; border-bottom:1px solid var(--line-light); position:relative;
+  font-size:16px; color:var(--tx-dark); max-width:64ch;
+}
+.problem-list li::before{content:""; position:absolute; left:0; top:29px; width:12px; height:2px; background:var(--blue)}
+.problem-closing{
+  margin-top:28px; font-family:"Big Shoulders Display"; font-weight:600; text-transform:none;
+  font-size:clamp(18px,2.1vw,22px); line-height:1.32; color:var(--tx-dark-soft); max-width:62ch;
+}
+
+/* ---------- 3-step process ---------- */
+/* A chronological onboarding sequence, not a parallel-pillar product
+   diagram (the thing the site explicitly avoided in an earlier round) —
+   numbering is genuine here since order is the actual point. Plain
+   typography, no icon boxes. */
+.process-steps{display:grid; grid-template-columns:repeat(3,1fr); gap:40px; margin-top:8px}
+@media (max-width:860px){ .process-steps{grid-template-columns:1fr; gap:32px} }
+.process-step{border-top:3px solid var(--blue); padding-top:20px}
+.process-num{font-family:"Big Shoulders Display"; font-weight:800; font-size:40px; line-height:1; color:var(--blue); display:block; margin-bottom:10px}
+.process-step h3{font-size:19px; text-transform:none; margin-bottom:8px; color:var(--tx-dark)}
+.process-step p{font-size:14.5px; color:var(--tx-dark-soft)}
+
+/* ---------- what's included (homepage teaser — full detail on
+   /pricing; this stays short on purpose, not a duplicate) ---------- */
+.included-teaser{border-top:1px solid var(--line-light); margin-top:8px}
+.included-teaser-item{padding:18px 0; border-bottom:1px solid var(--line-light); font-size:15.5px; color:var(--tx-dark-soft)}
+.included-teaser-item b{color:var(--tx-dark); font-weight:700}
+.included-teaser-item i{font-style:normal; color:var(--blue); font-size:11px; font-family:"IBM Plex Mono"; text-transform:uppercase; letter-spacing:.04em; margin-left:2px}
+.included-teaser-link{margin-top:22px}
+.included-teaser-link a{font-family:"IBM Plex Mono"; font-size:13px; color:var(--blue); text-decoration:none; border-bottom:1px solid var(--blue)}
+
 /* Real before/after — an actual client's old site next to the actual
-   Combat Boost rebuild, in a plain browser-chrome frame. Replaces the
-   floating-stat-card cluster that read as generic AI-page-builder filler. */
+   Combat Boost rebuild, in a plain browser-chrome frame. */
 .ba-compare{position:relative}
 .ba-frame{
-  background:var(--ink-2); border:1px solid var(--line-dark); border-radius:6px; overflow:hidden;
+  background:var(--paper-2); border:1px solid var(--line-light); border-radius:6px; overflow:hidden;
 }
 .ba-chrome{
-  display:flex; align-items:center; gap:8px; padding:9px 12px; background:var(--ink-3);
-  border-bottom:1px solid var(--line-dark);
+  display:flex; align-items:center; gap:8px; padding:9px 12px; background:var(--paper);
+  border-bottom:1px solid var(--line-light);
 }
-.ba-dot{width:8px; height:8px; border-radius:50%; background:#4a4130}
+.ba-dot{width:8px; height:8px; border-radius:50%; background:var(--line-light)}
 .ba-url{
   font-family:"IBM Plex Mono"; font-size:10.5px; color:var(--tx-dark-soft); margin-left:6px;
-  background:var(--ink); padding:2px 10px; border-radius:3px; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  background:var(--paper-2); padding:2px 10px; border-radius:3px; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .ba-frame img{width:100%; display:block}
 .ba-label{
@@ -219,24 +281,25 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
   margin-bottom:9px; display:flex; align-items:center; gap:8px;
 }
 .ba-label.before{color:var(--tx-dark-soft)}
-.ba-label.after{color:var(--clay)}
+.ba-label.after{color:var(--blue)}
 .ba-label .tag{width:16px; height:2px; background:currentColor; display:inline-block}
 .ba-after{margin-top:22px; margin-left:38px; position:relative; z-index:1}
-.ba-after .ba-frame{border-color:var(--gold); box-shadow:0 22px 50px rgba(0,0,0,.3)}
-.ba-cap{margin-top:14px; font-size:12.5px; color:var(--tx-light-soft); font-family:"IBM Plex Mono"}
-.ba-cap a{color:var(--clay)}
+.ba-after .ba-frame{border-color:var(--blue)}
+.ba-cap{margin-top:14px; font-size:12.5px; color:var(--tx-dark-soft); font-family:"IBM Plex Mono"}
+.ba-cap a{color:var(--blue)}
 @media (max-width:920px){
   .ba-after{margin-left:0; margin-top:16px}
 }
 
-/* ---------- proof strip ---------- */
-.proof{background:var(--ink-2); border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark)}
+/* ---------- logo trust bar ---------- */
+/* Dark contrast band — full-bleed, tight padding. */
+.proof{background:var(--ink); border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark)}
 .proof-inner{padding:40px 0; display:flex; align-items:center; gap:40px; flex-wrap:wrap; justify-content:space-between}
-.proof-lede{font-family:"IBM Plex Mono"; font-size:13px; color:var(--tx-dark-soft); white-space:nowrap; display:flex; align-items:baseline; gap:10px}
-.proof-lede b{font-family:"Big Shoulders Display"; font-weight:800; font-size:30px; color:var(--gold-bright)}
+.proof-lede{font-family:"IBM Plex Mono"; font-size:13px; color:var(--tx-light-soft); white-space:nowrap; display:flex; align-items:baseline; gap:10px}
+.proof-lede b{font-family:"Big Shoulders Display"; font-weight:800; font-size:30px; color:var(--blue-bright)}
 .logo-row{display:flex; gap:38px; flex-wrap:wrap; align-items:center}
-.logo-word{font-family:"Big Shoulders Display"; font-weight:700; font-size:16.5px; color:var(--tx-dark-soft); letter-spacing:.01em; text-transform:uppercase; white-space:nowrap}
-.logo-word small{display:block; font-family:"IBM Plex Mono"; font-size:9.5px; letter-spacing:.04em; color:#6b6455; text-transform:none; margin-top:1px}
+.logo-word{font-family:"Big Shoulders Display"; font-weight:700; font-size:16.5px; color:var(--tx-light-soft); letter-spacing:.01em; text-transform:uppercase; white-space:nowrap}
+.logo-word small{display:block; font-family:"IBM Plex Mono"; font-size:9.5px; letter-spacing:.04em; color:#767C86; text-transform:none; margin-top:1px}
 
 /* ---------- quote banner ---------- */
 .quote-banner{text-align:center}
@@ -244,96 +307,106 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
   font-family:"Big Shoulders Display"; font-weight:600; text-transform:none; letter-spacing:0;
   font-size:clamp(22px,3vw,32px); max-width:900px; margin:0 auto 20px; line-height:1.25; color:var(--tx-dark);
 }
-.quote-banner .q::before{content:"“"; color:var(--gold)}
-.quote-banner .q::after{content:"”"; color:var(--gold)}
+.quote-banner .q::before{content:"“"; color:var(--blue)}
+.quote-banner .q::after{content:"”"; color:var(--blue)}
 .quote-banner .attr{font-family:"IBM Plex Mono"; font-size:13px; color:var(--tx-dark-soft)}
-.quote-banner .attr b{color:var(--gold-bright)}
+.quote-banner .attr b{color:var(--blue)}
 
 /* ---------- before/after table ---------- */
-/* No radius here — rounding is reserved to buttons and the proof-pill
-   component only, per the reference site's discipline. */
-.baTable{width:100%; min-width:560px; border-collapse:collapse; background:var(--cream); overflow:hidden; border-radius:0}
+/* No radius here — rounding is reserved to buttons, the proof-pill, and
+   small icon badges only, per the locked discipline. */
+.baTable{width:100%; min-width:560px; border-collapse:collapse; background:var(--paper); overflow:hidden; border-radius:0}
 .baTable th, .baTable td{padding:18px 22px; text-align:left; border-bottom:1px solid var(--line-light); font-size:15px}
 .baTable thead th{
   font-family:"IBM Plex Mono"; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--tx-light-soft); border-bottom:2px solid var(--tx-light); padding-bottom:14px;
+  color:var(--tx-dark-soft); border-bottom:2px solid var(--tx-dark); padding-bottom:14px;
 }
 .baTable td:first-child{font-family:"Big Shoulders Display"; font-weight:700; font-size:17px; text-transform:uppercase; width:26%}
 .baTable tr:last-child td{border-bottom:none}
 .mark{display:inline-flex; align-items:center; gap:9px}
-.mark.bad::before{content:"✕"; color:var(--clay); font-weight:700}
+.mark.bad::before{content:"✕"; color:var(--bad); font-weight:700}
 .mark.good::before{content:"✓"; color:var(--good); font-weight:700}
-.reactivation-row td{background:var(--cream-2)}
+.reactivation-row td{background:var(--paper-2)}
 .tableWrap{overflow-x:auto}
+
+/* Comparison table reuses .baTable's exact system (same hairlines, same
+   uppercase mono headers, same 0px radius) — a different semantic table,
+   not a new visual pattern. Our column gets the accent color to draw the
+   eye; the other column stays neutral/muted rather than red — these are
+   factual differences, not a claim that the alternative is bad. */
+.cmp-us{color:var(--blue); font-weight:700}
+.cmp-them{color:var(--tx-dark-soft)}
 
 /* Standalone reactivation insight — kept out of the table cell on
    purpose, since it's a distinct point ("conversations, not blasts"),
    not a row description. */
 .reactivation-callout{
   margin-top:26px; font-family:"Big Shoulders Display"; font-weight:600; text-transform:none;
-  font-size:clamp(18px,2vw,22px); line-height:1.32; color:var(--tx-light); max-width:62ch;
+  font-size:clamp(18px,2vw,22px); line-height:1.32; color:var(--tx-dark); max-width:62ch;
 }
 /* Worked-example math — a distinct callout, not a plain paragraph.
    Left accent rule signals "worked example," same functional pattern
    already used on pull-quotes elsewhere — not decorative-only. */
 .reactivation-note{
-  margin-top:22px; border-left:2px solid var(--clay); padding-left:20px; max-width:58ch;
+  margin-top:22px; border-left:2px solid var(--blue); padding-left:20px; max-width:58ch;
 }
-.reactivation-note p{font-size:14.5px; color:var(--tx-light-soft); line-height:1.6}
-.reactivation-note b{color:var(--clay); font-weight:700}
+.reactivation-note p{font-size:14.5px; color:var(--tx-dark-soft); line-height:1.6}
+.reactivation-note b{color:var(--blue); font-weight:700}
 
-/* ---------- feature strip: plain text, no icon boxes ---------- */
+/* ---------- feature strip: plain text, no icon boxes (currently unused
+   dead CSS — the section it belonged to was cut when the homepage was
+   capped at 5 sections; kept in case a future round revives it) ---------- */
 .feature-strip{
-  display:flex; flex-wrap:wrap; gap:0; margin-top:8px; border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark);
+  display:flex; flex-wrap:wrap; gap:0; margin-top:8px; border-top:1px solid var(--line-light); border-bottom:1px solid var(--line-light);
 }
 .feature-strip span{
   font-family:"Big Shoulders Display"; font-weight:700; text-transform:uppercase; font-size:15px;
-  letter-spacing:.01em; padding:20px 30px 20px 0; margin-right:30px; border-right:1px solid var(--line-dark);
+  letter-spacing:.01em; padding:20px 30px 20px 0; margin-right:30px; border-right:1px solid var(--line-light);
   color:var(--tx-dark-soft);
 }
 .feature-strip span:last-child{border-right:none; margin-right:0}
-.feature-strip span i{color:var(--gold-bright); font-style:normal; font-weight:500; text-transform:none; font-size:12px; font-family:"IBM Plex Mono"}
+.feature-strip span i{color:var(--blue); font-style:normal; font-weight:500; text-transform:none; font-size:12px; font-family:"IBM Plex Mono"}
 @media (max-width:760px){
   .feature-strip{flex-direction:column; border-top:none; border-bottom:none}
-  .feature-strip span{border-right:none; border-bottom:1px solid var(--line-dark); margin-right:0; padding:16px 0}
+  .feature-strip span{border-right:none; border-bottom:1px solid var(--line-light); margin-right:0; padding:16px 0}
   .feature-strip span:last-child{border-bottom:none}
 }
 .neg-space{margin-top:34px; display:flex; flex-direction:column; gap:10px}
 .neg-space p{font-family:"Big Shoulders Display"; font-weight:600; font-size:clamp(18px,2.1vw,23px); text-transform:none; color:var(--tx-dark-soft)}
-.neg-space p b{color:var(--gold-bright); font-weight:800}
+.neg-space p b{color:var(--blue); font-weight:800}
 
 /* ---------- about: real photo + prose, no card/number grid ---------- */
 .about-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:center}
 @media (max-width:820px){ .about-grid{grid-template-columns:1fr} }
 .about-photo{width:100%; border-radius:4px; display:block}
-.about-cap{font-family:"IBM Plex Mono"; font-size:11.5px; color:var(--tx-light-soft); margin-top:10px}
+.about-cap{font-family:"IBM Plex Mono"; font-size:11.5px; color:var(--tx-dark-soft); margin-top:10px}
 .about-copy p + p{margin-top:16px}
-.about-copy .stat-inline{font-family:"Big Shoulders Display"; font-weight:800; color:var(--clay)}
+.about-copy .stat-inline{font-family:"Big Shoulders Display"; font-weight:800; color:var(--blue)}
 
 /* ---------- video testimonial ---------- */
 .video-block{display:grid; grid-template-columns:.95fr 1.05fr; gap:48px; align-items:center}
 @media (max-width:860px){ .video-block{grid-template-columns:1fr} }
 .video-card{
-  aspect-ratio:16/10; background:var(--ink-3); border-top:3px solid var(--gold);
+  aspect-ratio:16/10; background:var(--paper-2); border-top:3px solid var(--blue);
   display:flex; align-items:center; justify-content:center; position:relative;
 }
 .play{
-  width:60px; height:60px; border-radius:50%; background:var(--gold); display:flex;
+  width:60px; height:60px; border-radius:50%; background:var(--blue); display:flex;
   align-items:center; justify-content:center;
 }
-.play::before{content:""; width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-left:16px solid var(--ink); margin-left:4px}
+.play::before{content:""; width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-left:16px solid #fff; margin-left:4px}
 .video-card .vc-cap{position:absolute; bottom:14px; left:16px; font-family:"IBM Plex Mono"; font-size:11.5px; color:var(--tx-dark-soft)}
 .video-quote .q{
   font-family:"Big Shoulders Display"; font-weight:600; font-size:clamp(22px,2.6vw,30px); line-height:1.28;
-  margin-bottom:18px; text-transform:none;
+  margin-bottom:18px; text-transform:none; color:var(--tx-dark);
 }
-.video-quote .q span{color:var(--gold-bright)}
+.video-quote .q span{color:var(--blue)}
 .video-quote .attr{font-family:"IBM Plex Mono"; font-size:13.5px; color:var(--tx-dark-soft)}
 .video-quote .woven-stat{
-  margin-top:22px; padding-top:18px; border-top:1px solid var(--line-dark);
+  margin-top:22px; padding-top:18px; border-top:1px solid var(--line-light);
   display:flex; align-items:baseline; gap:12px;
 }
-.woven-stat .ws-num{font-family:"Big Shoulders Display"; font-weight:800; font-size:32px; color:var(--gold-bright)}
+.woven-stat .ws-num{font-family:"Big Shoulders Display"; font-weight:800; font-size:32px; color:var(--blue)}
 .woven-stat .ws-txt{font-size:13.5px; color:var(--tx-dark-soft)}
 
 /* ---------- case studies: flat, no shadow, thin rule not a boxed card ---------- */
@@ -347,73 +420,69 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
   .cs-card{border-left:none; border-top:1px solid var(--line-light); padding:26px 0}
   .cs-card:first-child{border-top:none; padding-top:0}
 }
-.cs-shot{width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; border-top:3px solid var(--clay); margin-bottom:6px}
-.cs-tag{font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.05em; color:var(--clay); text-transform:uppercase}
+.cs-shot{width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; border-top:3px solid var(--blue); margin-bottom:6px}
+.cs-tag{font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.05em; color:var(--blue); text-transform:uppercase}
 .cs-card h3{font-size:19px; text-transform:none}
-.cs-card p{font-size:14px; color:var(--tx-light-soft)}
-.cs-link{font-family:"IBM Plex Mono"; font-size:12.5px; color:var(--tx-light); margin-top:auto; text-decoration:none; border-bottom:1px solid var(--tx-light)}
+.cs-card p{font-size:14px; color:var(--tx-dark-soft)}
+.cs-link{font-family:"IBM Plex Mono"; font-size:12.5px; color:var(--tx-dark); margin-top:auto; text-decoration:none; border-bottom:1px solid var(--tx-dark)}
 
 /* ---------- faq ---------- */
-.faq-item{border-bottom:1px solid var(--line-dark); padding:22px 0}
+.faq-item{border-bottom:1px solid var(--line-light); padding:22px 0}
 .faq-item summary{
   cursor:pointer; list-style:none; font-family:"Big Shoulders Display"; font-weight:700; font-size:18px;
   display:flex; justify-content:space-between; align-items:center; text-transform:none;
 }
 .faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary::after{content:"+"; color:var(--gold); font-size:22px; font-family:"IBM Plex Mono"}
+.faq-item summary::after{content:"+"; color:var(--blue); font-size:22px; font-family:"IBM Plex Mono"}
 .faq-item[open] summary::after{content:"–"}
 .faq-item p{margin-top:12px; font-size:14.5px; color:var(--tx-dark-soft); max-width:70ch}
 
-/* ---------- closing / pricing ---------- */
-.closing{background:linear-gradient(155deg,var(--gold) 0%, #B9832A 100%); color:var(--ink); text-align:center}
-.closing h2{font-size:clamp(30px,4.4vw,48px); color:var(--ink); margin-bottom:16px}
-.closing p{font-size:16.5px; max-width:56ch; margin:0 auto 30px; color:#3A2C10}
-.closing .btn-gold{background:var(--ink); color:var(--gold-bright)}
-.closing .btn-gold:hover{background:#241f16}
-.closing .btn-ghost-dark{border-color:rgba(21,19,15,.4); color:var(--ink)}
+/* ---------- closing CTA ---------- */
+/* The one deliberate dark section for rhythm (per PROJECT.md) — same ink
+   band as nav/logo-strip/footer, not a colored gradient wash. */
+.closing{background:var(--ink); color:var(--tx-light); text-align:center}
+.closing h2{font-size:clamp(30px,4.4vw,48px); color:var(--tx-light); margin-bottom:16px}
+.closing p{font-size:16.5px; max-width:56ch; margin:0 auto 30px; color:var(--tx-light-soft)}
+.closing .btn-primary{background:var(--blue); color:#fff}
+.closing .btn-primary:hover{background:var(--blue-bright)}
 
 /* ---------- footer ---------- */
-footer{background:#0F0D0A; padding:70px 0 30px; border-top:1px solid var(--line-dark)}
+footer{background:var(--ink); padding:70px 0 30px; border-top:1px solid var(--line-dark)}
 .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:44px; border-bottom:1px solid var(--line-dark)}
 @media (max-width:820px){ .foot-grid{grid-template-columns:1fr 1fr} }
-.foot-grid h5{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--tx-dark-soft); margin-bottom:16px}
+.foot-grid h5{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--tx-light-soft); margin-bottom:16px}
 .foot-links{list-style:none; margin:0; padding:0; display:grid; gap:11px}
-.foot-links a{text-decoration:none; color:var(--tx-dark-soft); font-size:14px}
-.foot-links a:hover{color:var(--gold)}
-.foot-about p{font-size:13.5px; color:var(--tx-dark-soft); max-width:36ch; margin-top:14px}
-.foot-bottom{padding-top:26px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12.5px; color:#665F51}
-.foot-bottom a{color:#665F51; text-decoration:none}
+.foot-links a{text-decoration:none; color:var(--tx-light-soft); font-size:14px}
+.foot-links a:hover{color:var(--blue-bright)}
+.foot-about p{font-size:13.5px; color:var(--tx-light-soft); max-width:36ch; margin-top:14px}
+.foot-bottom{padding-top:26px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12.5px; color:#6B7280}
+.foot-bottom a{color:#6B7280; text-decoration:none}
 
 /* ---------- results page: video embed ---------- */
-.video-embed-wrap{position:relative; padding-top:56.25%; border-top:3px solid var(--gold); margin-bottom:28px; background:var(--ink-3)}
+.video-embed-wrap{position:relative; padding-top:56.25%; border-top:3px solid var(--blue); margin-bottom:28px; background:var(--paper-2)}
 .video-embed-wrap iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0}
 
 /* ---------- results page: repeatable proof card ---------- */
 .proof-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:18px; margin-top:8px}
-.proof-card{background:var(--ink-2); border:1px solid var(--line-dark)}
-.on-light .proof-card, .on-light2 .proof-card{background:var(--cream-2); border-color:var(--line-light)}
+.proof-card{background:var(--paper); border:1px solid var(--line-light)}
 .proof-shot{width:100%; aspect-ratio:16/10; object-fit:cover; display:block}
 .proof-pending{
   aspect-ratio:16/10; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:4px; background:repeating-linear-gradient(135deg, var(--ink-3), var(--ink-3) 10px, var(--ink-2) 10px, var(--ink-2) 20px);
+  gap:4px; background:repeating-linear-gradient(135deg, var(--paper), var(--paper) 10px, var(--paper-2) 10px, var(--paper-2) 20px);
   font-family:"IBM Plex Mono"; font-size:12px; color:var(--tx-dark-soft); text-align:center; padding:16px;
-}
-.on-light .proof-pending, .on-light2 .proof-pending{
-  background:repeating-linear-gradient(135deg, var(--cream), var(--cream) 10px, var(--cream-2) 10px, var(--cream-2) 20px);
-  color:var(--tx-light-soft);
 }
 .proof-pending span{font-size:10.5px; opacity:.75}
 .proof-card-body{padding:16px 18px}
 .proof-badge{
   display:inline-block; font-family:"IBM Plex Mono"; font-size:10.5px; letter-spacing:.04em; text-transform:uppercase;
-  color:var(--gold-bright); background:rgba(201,151,43,.12); padding:3px 9px; border-radius:100px; margin-bottom:8px;
+  color:var(--blue); background:rgba(17,99,183,.1); padding:3px 9px; border-radius:100px; margin-bottom:8px;
 }
 .proof-card-body h3{font-size:16px; text-transform:none}
 .proof-note{font-size:12px; color:var(--tx-dark-soft); margin-top:6px; font-style:italic}
 .proof-more{margin-top:26px}
 .proof-more summary{
-  cursor:pointer; list-style:none; font-family:"IBM Plex Mono"; font-size:13px; color:var(--gold-bright);
-  border-bottom:1px solid var(--gold-bright); display:inline-block; padding-bottom:2px;
+  cursor:pointer; list-style:none; font-family:"IBM Plex Mono"; font-size:13px; color:var(--blue);
+  border-bottom:1px solid var(--blue); display:inline-block; padding-bottom:2px;
 }
 .proof-more summary::-webkit-details-marker{display:none}
 .proof-more summary::before{content:"+ "}
@@ -423,19 +492,16 @@ footer{background:#0F0D0A; padding:70px 0 30px; border-top:1px solid var(--line-
 .stat-compare{display:flex; flex-wrap:wrap; gap:40px}
 .stat-compare-item{display:flex; flex-direction:column; gap:8px}
 .sc-label{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:var(--tx-dark-soft)}
-.on-light .sc-label, .on-light2 .sc-label{color:var(--tx-light-soft)}
 .sc-nums{display:flex; align-items:baseline; gap:14px}
-.sc-before{font-family:"Big Shoulders Display"; font-weight:700; font-size:32px; color:var(--tx-dark-soft); text-decoration:line-through; text-decoration-color:var(--clay)}
-.on-light .sc-before, .on-light2 .sc-before{color:var(--tx-light-soft)}
-.sc-arrow{font-size:22px; color:var(--gold-bright)}
-.sc-after{font-family:"Big Shoulders Display"; font-weight:800; font-size:44px; color:var(--gold-bright)}
+.sc-before{font-family:"Big Shoulders Display"; font-weight:700; font-size:32px; color:var(--tx-dark-soft); text-decoration:line-through; text-decoration-color:var(--bad)}
+.sc-arrow{font-size:22px; color:var(--blue)}
+.sc-after{font-family:"Big Shoulders Display"; font-weight:800; font-size:44px; color:var(--blue)}
 
 /* ---------- results page: growth-over-time grid ---------- */
 .growth-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px}
 @media (max-width:820px){ .growth-grid{grid-template-columns:1fr} }
 .growth-grid .proof-pending{aspect-ratio:4/3}
-.proof-wide{width:100%; display:block; border:1px solid var(--line-dark)}
-.on-light .proof-wide, .on-light2 .proof-wide{border-color:var(--line-light)}
+.proof-wide{width:100%; display:block; border:1px solid var(--line-light)}
 .growth-grid .proof-wide{aspect-ratio:4/3; object-fit:contain; background:#fff; padding:8px}
 
 /* ---------- results page: text-message bubble ---------- */
@@ -444,14 +510,14 @@ footer{background:#0F0D0A; padding:70px 0 30px; border-top:1px solid var(--line-
   background:#2E8B57; color:#fff; padding:14px 18px; border-radius:18px 18px 18px 4px;
   font-size:14.5px; line-height:1.45; position:relative;
 }
-.bubble-cap{font-family:"IBM Plex Mono"; font-size:11.5px; color:var(--tx-light-soft); margin-top:10px}
+.bubble-cap{font-family:"IBM Plex Mono"; font-size:11.5px; color:var(--tx-dark-soft); margin-top:10px}
 
 /* ---------- results page: testimonial grid ---------- */
 .testimonial-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:20px}
-.testimonial-card{background:var(--cream-2); border:1px solid var(--line-light); padding:22px}
-.testimonial-card .story-quote{font-size:16px; margin:10px 0 14px; padding-left:16px; color:var(--tx-light)}
-.testimonial-name{font-family:"IBM Plex Mono"; font-size:12px; color:var(--tx-light-soft)}
+.testimonial-card{background:var(--paper-2); border:1px solid var(--line-light); padding:22px}
+.testimonial-card .story-quote{font-size:16px; margin:10px 0 14px; padding-left:16px; color:var(--tx-dark)}
+.testimonial-name{font-family:"IBM Plex Mono"; font-size:12px; color:var(--tx-dark-soft)}
 .quote-pending{
-  font-family:"IBM Plex Mono"; font-size:13px; color:var(--tx-light-soft); font-style:italic;
+  font-family:"IBM Plex Mono"; font-size:13px; color:var(--tx-dark-soft); font-style:italic;
   padding:14px; border:1px dashed var(--line-light);
 }
