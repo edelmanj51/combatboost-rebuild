@@ -225,38 +225,45 @@ nav.main a[aria-current="page"]{color:var(--blue-bright)}
 
 /* ---------- problem section ---------- */
 /* Concrete, observable symptoms — not abstract complaints (Academy
-   Blast's own problem-framing pattern). Small dash-marker reuses the
-   same line-marker device already established on .ba-label .tag, rather
-   than introducing a new icon or bullet style. */
+   Blast's own problem-framing pattern). Reuses the same ✕ mark already
+   established on the before/after table's .mark.bad, in the same
+   semantic red, rather than introducing a new icon. */
 .problem-list{list-style:none; margin:8px 0 0; padding:0; border-top:1px solid var(--line-light)}
 .problem-list li{
-  padding:20px 0 20px 26px; border-bottom:1px solid var(--line-light); position:relative;
+  display:flex; align-items:flex-start; gap:14px;
+  padding:20px 0; border-bottom:1px solid var(--line-light);
   font-size:16px; color:var(--tx-dark); max-width:64ch;
 }
-.problem-list li::before{content:""; position:absolute; left:0; top:29px; width:12px; height:2px; background:var(--blue)}
+.problem-mark{
+  flex-shrink:0; width:24px; height:24px; border-radius:50%;
+  background:rgba(198,67,59,.1); color:var(--bad); font-size:12px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; margin-top:1px;
+}
 .problem-closing{
-  margin-top:28px; font-family:"Big Shoulders Display"; font-weight:600; text-transform:none;
-  font-size:clamp(18px,2.1vw,22px); line-height:1.32; color:var(--tx-dark-soft); max-width:62ch;
+  margin-top:28px; font-size:16.5px; line-height:1.6; color:var(--tx-dark-soft); max-width:66ch;
 }
 
 /* ---------- 3-step process ---------- */
 /* A chronological onboarding sequence, not a parallel-pillar product
    diagram (the thing the site explicitly avoided in an earlier round) —
-   numbering is genuine here since order is the actual point. Plain
-   typography, no icon boxes. */
+   numbering is genuine here since order is the actual point. Circular
+   badge (not a card/icon-box) marks each step clearly without adding a
+   new decorative-icon pattern. */
 .process-steps{display:grid; grid-template-columns:repeat(3,1fr); gap:40px; margin-top:8px}
 @media (max-width:860px){ .process-steps{grid-template-columns:1fr; gap:32px} }
-.process-step{border-top:3px solid var(--blue); padding-top:20px}
-.process-num{font-family:"Big Shoulders Display"; font-weight:800; font-size:40px; line-height:1; color:var(--blue); display:block; margin-bottom:10px}
-.process-step h3{font-size:19px; text-transform:none; margin-bottom:8px; color:var(--tx-dark)}
-.process-step p{font-size:14.5px; color:var(--tx-dark-soft)}
+.process-step{border-top:3px solid var(--blue); padding-top:24px}
+.process-badge{
+  display:flex; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:50%; margin-bottom:16px;
+  background:var(--blue); color:#fff; font-family:"Big Shoulders Display"; font-weight:800; font-size:18px;
+}
+.process-step h3{font-size:19px; text-transform:none; margin-bottom:10px; color:var(--tx-dark)}
+.process-step p{font-size:14.5px; color:var(--tx-dark-soft); line-height:1.6}
 
-/* ---------- what's included (homepage teaser — full detail on
-   /pricing; this stays short on purpose, not a duplicate) ---------- */
-.included-teaser{border-top:1px solid var(--line-light); margin-top:8px}
-.included-teaser-item{padding:18px 0; border-bottom:1px solid var(--line-light); font-size:15.5px; color:var(--tx-dark-soft)}
-.included-teaser-item b{color:var(--tx-dark); font-weight:700}
-.included-teaser-item i{font-style:normal; color:var(--blue); font-size:11px; font-family:"IBM Plex Mono"; text-transform:uppercase; letter-spacing:.04em; margin-left:2px}
+/* ---------- what's included on the homepage: reuses the exact
+   .included-list/.included-icon component built for /pricing (same
+   `included_item()` helper in build.py) — not a second hand-built
+   version. Link line below stays shared with the FAQ summary section. */
 .included-teaser-link{margin-top:22px}
 .included-teaser-link a{font-family:"IBM Plex Mono"; font-size:13px; color:var(--blue); text-decoration:none; border-bottom:1px solid var(--blue)}
 
@@ -436,6 +443,15 @@ nav.main a[aria-current="page"]{color:var(--blue-bright)}
 .faq-item summary::after{content:"+"; color:var(--blue); font-size:22px; font-family:"IBM Plex Mono"}
 .faq-item[open] summary::after{content:"–"}
 .faq-item p{margin-top:12px; font-size:14.5px; color:var(--tx-dark-soft); max-width:70ch}
+
+/* ---------- homepage FAQ summary: always-visible, not collapsed ----------
+   A 3-question teaser doesn't benefit from the same progressive-disclosure
+   /faq page pattern uses for 7 questions — collapsed-by-default here just
+   reads as empty. Plain visible Q&A rows instead of <details>. */
+.faq-summary-list{border-top:1px solid var(--line-light); margin-top:8px}
+.faq-summary-item{padding:22px 0; border-bottom:1px solid var(--line-light)}
+.faq-summary-item h3{font-size:18px; text-transform:none; color:var(--tx-dark)}
+.faq-summary-item p{margin-top:10px; font-size:14.5px; color:var(--tx-dark-soft); max-width:70ch}
 
 /* ---------- closing CTA ---------- */
 /* The one deliberate dark section for rhythm (per PROJECT.md) — same ink

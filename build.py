@@ -34,6 +34,27 @@ def logo_mark(height):
     return f'<img src="/assets/images/logo-mark.png" alt="" width="{width}" height="{height}" aria-hidden="true">'
 
 
+# Shared icon set for the included-list/included-icon component (NextKick
+# spec extraction, adapted — see PROJECT.md's border-radius exception).
+# Defined once here so /pricing and the homepage's "What's Included"
+# section render the identical component, not two hand-copied versions.
+_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+ICON_WEBSITE = f'{_SVG_OPEN}<rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>'
+ICON_STAR = f'{_SVG_OPEN}<polygon points="12 2.5 14.8 8.6 21.5 9.4 16.6 14 18 20.6 12 17.2 6 20.6 7.4 14 2.5 9.4 9.2 8.6"/></svg>'
+ICON_MESSAGE = f'{_SVG_OPEN}<path d="M4 5h16v11H8l-4 4V5z"/></svg>'
+ICON_MEGAPHONE = f'{_SVG_OPEN}<path d="M3 11v2a2 2 0 0 0 2 2h1l3 5V4l-3 5H5a2 2 0 0 0-2 2z"/><path d="M14 8a4 4 0 0 1 0 8"/><path d="M17 5a8 8 0 0 1 0 14"/></svg>'
+
+
+def included_item(icon, title_html, body_html):
+    return f'''      <div class="included-item">
+        <div class="included-icon-row">
+          <span class="included-icon">{icon}</span>
+          <h3>{title_html}</h3>
+        </div>
+        <p>{body_html}</p>
+      </div>'''
+
+
 def head(title, description, canonical_path):
     return f'''<!doctype html>
 <meta charset="utf-8">
@@ -185,12 +206,12 @@ def build_homepage():
       <p>Here's what that actually looks like, day to day:</p>
     </div>
     <ul class="problem-list">
-      <li>A parent finds you on Google, opens your site on their phone, and leaves before it even loads.</li>
-      <li>You've got a school parents love, but only a handful of reviews to show for it.</li>
-      <li>A trial-class lead texts in at 9pm and doesn't hear back until you're free the next afternoon.</li>
-      <li>A member quits, and nobody ever reaches back out to see if they'd come back.</li>
+      <li><span class="problem-mark">&#10005;</span>A parent finds you on Google, opens your site on their phone, and leaves before it even loads.</li>
+      <li><span class="problem-mark">&#10005;</span>You've got a school parents love, but only a handful of reviews to show for it.</li>
+      <li><span class="problem-mark">&#10005;</span>A trial-class lead texts in at 9pm and doesn't hear back until you're free the next afternoon.</li>
+      <li><span class="problem-mark">&#10005;</span>A member quits, and nobody ever reaches back out to see if they'd come back.</li>
     </ul>
-    <p class="problem-closing">None of these are separate problems. They're the same traffic, falling through the same cracks — one after another.</p>
+    <p class="problem-closing">None of these are separate problems. They're the same traffic — the parent who found you, the lead who almost booked, the member who almost stayed — falling through the same cracks, one after another. Fix the sequence, and all four stop happening at once. That's the difference between patching one symptom and fixing the actual system.</p>
   </div>
 </section>
 
@@ -201,19 +222,19 @@ def build_homepage():
     </div>
     <div class="process-steps">
       <div class="process-step">
-        <span class="process-num">1</span>
+        <span class="process-badge">1</span>
         <h3>Book a Strategy Call</h3>
-        <p>We look at your actual site and search presence, and tell you honestly where the biggest gap is.</p>
+        <p>We look at your actual website, search presence, and current follow-up process, and tell you honestly where the biggest gap actually is — not a generic audit, a specific one based on your school. If a full rebuild isn't the right move yet, we'll tell you that too.</p>
       </div>
       <div class="process-step">
-        <span class="process-num">2</span>
+        <span class="process-badge">2</span>
         <h3>We Build Your System</h3>
-        <p>Website, reviews &amp; referral automation, and follow-up — built and connected, live in as fast as 48 hours.</p>
+        <p>Your website, review &amp; referral automation, and follow-up &amp; reactivation get built and connected as one system — live in as fast as 48 hours. Nothing launches in disconnected pieces; it's built to work together from day one.</p>
       </div>
       <div class="process-step">
-        <span class="process-num">3</span>
+        <span class="process-badge">3</span>
         <h3>Leads Start Converting</h3>
-        <p>You teach. The system follows up, requests reviews, and reactivates old leads — automatically.</p>
+        <p>You keep teaching. The system follows up with new leads within minutes, requests reviews after every win, and reaches out to old leads and inactive members one real conversation at a time — all running automatically in the background.</p>
       </div>
     </div>
   </div>
@@ -224,11 +245,17 @@ def build_homepage():
     <div class="section-head">
       <h2>One System. Four Connected Parts.</h2>
     </div>
-    <div class="included-teaser">
-      <div class="included-teaser-item"><b>The Website</b> — built to convert, not just to look nice.</div>
-      <div class="included-teaser-item"><b>Reviews &amp; Referrals</b> — requested automatically, after every win.</div>
-      <div class="included-teaser-item"><b>Follow-Up &amp; Reactivation</b> — new leads and old leads, both handled in real time.</div>
-      <div class="included-teaser-item"><b>Managed Ads</b> <i>Optional</i> — once the foundation's converting, we'll run them for you.</div>
+    <div class="included-list">
+''' + '\n'.join([
+        included_item(ICON_WEBSITE, "The Website",
+            "Not a template with your logo dropped in — a real, mobile-first site built around one job: turning the parent researching schools at 9pm into a booked intro class."),
+        included_item(ICON_STAR, "Reviews &amp; Referrals",
+            "Every sign-up, promotion, or good class automatically triggers a review or referral request — so your reputation grows on its own instead of depending on you remembering to ask."),
+        included_item(ICON_MESSAGE, "Follow-Up &amp; Reactivation",
+            "New leads get followed up within minutes. Leads and past members already sitting in your database get reached out to personally, one real conversation at a time — not a mass blast — typically recovering 2&ndash;4% of that list."),
+        included_item(ICON_MEGAPHONE, 'Managed Ads <span class="tag-optional">Optional</span>',
+            "Ads amplify whatever conversion rate already exists. Once your site, reviews, and follow-up are proven to convert, paid traffic becomes worth paying for — not before."),
+    ]) + '''
     </div>
     <p class="included-teaser-link"><a href="/pricing/">Full breakdown, plus what's included at every stage &rarr; See Pricing</a></p>
   </div>
@@ -288,7 +315,7 @@ def build_homepage():
       </div>
     </div>
     <div class="video-quote">
-      <p class="lede" style="margin-bottom:8px">One school. The whole sequence, start to finish.</p>
+      <p class="lede" style="margin-bottom:8px">Here's what that sequence looks like for one real school, start to finish — not a hypothetical, an actual client.</p>
       <p class="q">"I absolutely would recommend it... I think I waited too long. <span>But it was the right time when we were able to team up.</span> I would definitely make the investment because it's going to come back to you. It really doesn't take too long for you to see the benefit."</p>
       <p class="attr">— Dan Carey, real client</p>
     </div>
@@ -337,18 +364,20 @@ def build_homepage():
     <div class="section-head">
       <h2>Quick Answers Before You Book.</h2>
     </div>
-    <details class="faq-item">
-      <summary>Do I need to stop running ads?</summary>
-      <p>No — sequencing, not opposition. Fix the foundation first, then ads go further.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Is there a contract?</summary>
-      <p>No long-term contracts.</p>
-    </details>
-    <details class="faq-item">
-      <summary>How long does it take to launch?</summary>
-      <p>As fast as 48 hours from kickoff.</p>
-    </details>
+    <div class="faq-summary-list">
+      <div class="faq-summary-item">
+        <h3>Do I need to stop running ads?</h3>
+        <p>No — sequencing, not opposition. Fix the foundation first, then ads go further.</p>
+      </div>
+      <div class="faq-summary-item">
+        <h3>Is there a contract?</h3>
+        <p>No long-term contracts.</p>
+      </div>
+      <div class="faq-summary-item">
+        <h3>How long does it take to launch?</h3>
+        <p>As fast as 48 hours from kickoff.</p>
+      </div>
+    </div>
     <p class="included-teaser-link"><a href="/faq/">More questions? See the Full FAQ &rarr;</a></p>
   </div>
 </section>
@@ -356,7 +385,7 @@ def build_homepage():
 <section class="closing" id="cta">
   <div class="wrap">
     <h2>Stop Losing Traffic<br>You Already Have.</h2>
-    <p>One flat price, the whole sequence fixed — website, reviews, follow-up, reactivation. Ads only once that's actually converting.</p>
+    <p>One flat plan covers the whole sequence — website, reviews, follow-up, reactivation. No tiers to guess between, no ad spend required to get started. Ads come later, once the foundation's proven to convert what you already have.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
       <a class="btn btn-primary" href="/pricing/#call">Book a Strategy Call</a>
     </div>
@@ -383,53 +412,16 @@ def build_pricing():
 <section class="on-light" style="padding-top:0">
   <div class="wrap">
     <div class="included-list">
-      <div class="included-item">
-        <div class="included-icon-row">
-          <span class="included-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="16" rx="2"/>
-              <line x1="3" y1="9" x2="21" y2="9"/>
-            </svg>
-          </span>
-          <h3>The Website</h3>
-        </div>
-        <p>A real, built-to-convert website for your school — not a template with your logo dropped in. This is the core deliverable and where most of the build time goes.</p>
-      </div>
-      <div class="included-item">
-        <div class="included-icon-row">
-          <span class="included-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polygon points="12 2.5 14.8 8.6 21.5 9.4 16.6 14 18 20.6 12 17.2 6 20.6 7.4 14 2.5 9.4 9.2 8.6"/>
-            </svg>
-          </span>
-          <h3>Reviews &amp; Referrals</h3>
-        </div>
-        <p>Automated requests sent after every win, so your Google reviews and referrals grow on their own instead of depending on you remembering to ask.</p>
-      </div>
-      <div class="included-item">
-        <div class="included-icon-row">
-          <span class="included-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 5h16v11H8l-4 4V5z"/>
-            </svg>
-          </span>
-          <h3>Follow-Up &amp; Reactivation</h3>
-        </div>
-        <p>Every new lead followed up within minutes, and your existing past-member list re-engaged on autopilot — not left cold in an old spreadsheet or CRM.</p>
-      </div>
-      <div class="included-item">
-        <div class="included-icon-row">
-          <span class="included-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 11v2a2 2 0 0 0 2 2h1l3 5V4l-3 5H5a2 2 0 0 0-2 2z"/>
-              <path d="M14 8a4 4 0 0 1 0 8"/>
-              <path d="M17 5a8 8 0 0 1 0 14"/>
-            </svg>
-          </span>
-          <h3>Managed Ads <span class="tag-optional">Optional Add-On</span></h3>
-        </div>
-        <p>Once the site, reviews, and follow-up are converting what you already have, we'll run Google/Facebook ads for you if it makes sense — never the starting point.</p>
-      </div>
+''' + '\n'.join([
+        included_item(ICON_WEBSITE, "The Website",
+            "A real, built-to-convert website for your school — not a template with your logo dropped in. This is the core deliverable and where most of the build time goes."),
+        included_item(ICON_STAR, "Reviews &amp; Referrals",
+            "Automated requests sent after every win, so your Google reviews and referrals grow on their own instead of depending on you remembering to ask."),
+        included_item(ICON_MESSAGE, "Follow-Up &amp; Reactivation",
+            "Every new lead followed up within minutes, and your existing past-member list re-engaged on autopilot — not left cold in an old spreadsheet or CRM."),
+        included_item(ICON_MEGAPHONE, 'Managed Ads <span class="tag-optional">Optional Add-On</span>',
+            "Once the site, reviews, and follow-up are converting what you already have, we'll run Google/Facebook ads for you if it makes sense — never the starting point."),
+    ]) + '''
     </div>
 
     <div style="margin-top:56px; max-width:640px">

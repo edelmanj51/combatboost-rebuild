@@ -159,18 +159,29 @@ output directory `/`).
 
 **Done**: the white-primary/blue-accent color system and the real logo
 asset are live across all 5 existing pages (see the color-system history
-note above). **Still pending**: the homepage section count is expanding
-from 5 to 10 — Hero → Logo Trust Bar → Problem → 3-Step Process → What's
-Included → Before/After Table → Testimonial → Comparison (Combat Boost vs.
-Typical Agency) → FAQ (summary) → Final CTA — plus a new **Blog** page.
-This is a deliberate reversal of the earlier "keep it to 5, don't pad it
-out to match a competitor" decision — flagged and confirmed with the site
-owner before building, given how much weight that earlier decision carried.
-Copy for the 5 new sections is being drafted for review before any layout
-code is written (per standing instruction on this task) — do not build
-these sections' HTML/CSS until that copy is approved. The Blog will carry
-general educational content only — no fabricated stats or client stories;
-every claim on it must still trace to the four confirmed facts above.
+note above). The homepage is built out to its full locked 10-section
+structure — Hero (3 stat-pills) → Logo Trust Bar → Problem → 3-Step
+Process → What's Included → Before/After Table → Testimonial → Comparison
+(Combat Boost vs. Typical Agency) → FAQ (summary) → Final CTA — with a
+full content-depth/visual-polish pass matching `/pricing`'s treatment
+(multi-sentence copy per item, not one-liners; icon/badge components, not
+plain bullets). This was a deliberate reversal of the earlier "keep it to
+5, don't pad it out to match a competitor" decision — flagged and
+confirmed with the site owner before building, given how much weight that
+earlier decision carried.
+
+The homepage's "What's Included" section reuses the *exact* `included_item()`
+component/icon set `/pricing` uses (factored into shared constants in
+`build.py` — `ICON_WEBSITE`/`ICON_STAR`/`ICON_MESSAGE`/`ICON_MEGAPHONE`),
+not a second hand-built version — keep it that way if either page's copy
+changes again. The homepage FAQ summary intentionally does **not** use the
+collapsible `<details>` accordion `/faq` uses — a 3-question teaser reads
+as broken/empty collapsed-by-default, so it's always-visible plain text
+instead; only the full `/faq` page should use the accordion pattern.
+
+**Still pending**: a new **Blog** page. It will carry general educational
+content only — no fabricated stats or client stories; every claim on it
+must still trace to the four confirmed facts above.
 
 - `/` — Homepage (expanding to 10 sections per above).
 - `/pricing/` — What's included, no price shown, "Book a Strategy Call" CTA.
