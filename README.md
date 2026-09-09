@@ -81,11 +81,21 @@ and height H:
 
 ```
 convert raw.png \
-  \( -clone 0 -crop $((W-170))x$((H-155))+170+155 +repage -scale 6% -scale 1667% \) \
+  \( -clone 0 -crop $((W-170))x$((H-155))+170+155 +repage -scale 12% -scale 833% \) \
   -geometry +170+155 -compose over -composite \
   -crop ${W}x${H}+170+0 +repage \
   redacted.png
 ```
+
+**Pixelation block size (12%/833%, corrected from an earlier 6%/1667%):**
+the original 6% pass produced blocks roughly as tall as a single
+appointment row, so adjacent rows fused into one solid color mass with
+no visible structure — technically private, but it read as a blurry,
+low-quality image rather than proof of a real, busy calendar. 12% keeps
+every name fully illegible (verified against the raw source) while
+preserving distinct row-by-row structure, so the density actually reads.
+Don't go higher than ~15% — at 18%+, faint letter-shape outlines start
+becoming visible, which defeats the redaction.
 
 Raw, unredacted originals live in `raw-drive-assets/` locally (never
 committed — see `.gitignore`) alongside this exact pipeline; run it on

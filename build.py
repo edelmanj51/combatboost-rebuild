@@ -19,7 +19,9 @@ NAV_ITEMS = [
     ("/results/", "Results"),
     ("/pricing/", "Pricing"),
     ("/faq/", "FAQ"),
-    ("/about/", "About"),
+    # About intentionally unlinked for now (nav and footer both) — the
+    # page file stays in the repo, just not linked anywhere until it's
+    # revisited. Do not delete about/index.html or build_about().
 ]
 
 # Real logo mark (figure + upward arrow + growth-chart frame), pulled
@@ -72,7 +74,7 @@ def header(active_href):
         current = ' aria-current="page"' if href == active_href else ''
         links.append(f'      <a href="{href}"{current}>{label}</a>')
     nav_links = "\n".join(links)
-    return f'''<div class="concept-banner"><b>CONCEPT</b> — multi-page structure for internal review, built from the locked rebuild brief. Not the production site.</div>
+    return f'''<div class="concept-banner"><b>CONCEPT</b>: multi-page structure for internal review, built from the locked rebuild brief. Not the production site.</div>
 
 <header>
   <div class="wrap header-inner">
@@ -108,7 +110,7 @@ FOOTER = f'''<!-- PRIORITY 6, NOT BUILT THIS PASS: a self-serve "Free Website He
           {logo_mark(26)}
           <span class="brand-word">Combat<span>Boost</span></span>
         </div>
-        <p>Websites, review &amp; referral automation, and AI follow-up — built exclusively for martial arts schools.</p>
+        <p>Websites, review &amp; referral automation, and AI follow-up. Built exclusively for martial arts schools.</p>
       </div>
       <div>
         <h5>Product</h5>
@@ -122,7 +124,6 @@ FOOTER = f'''<!-- PRIORITY 6, NOT BUILT THIS PASS: a self-serve "Free Website He
       <div>
         <h5>Company</h5>
         <ul class="foot-links">
-          <li><a href="/about/">About</a></li>
           <li><a href="/results/">Results</a></li>
           <li><a href="/pricing/">Pricing</a></li>
           <li><a href="/faq/">FAQ</a></li>
@@ -187,7 +188,7 @@ def build_homepage():
 
 <div class="proof">
   <div class="wrap proof-inner">
-    <div class="proof-lede"><b>50+</b><span>martial arts schools<br>worked with — including:</span></div>
+    <div class="proof-lede"><b>50+</b><span>martial arts schools<br>worked with, including:</span></div>
     <div class="logo-row">
       <div class="logo-word">Premier<br><small>Martial Arts</small></div>
       <div class="logo-word">ATA<br><small>American Taekwondo Assoc.</small></div>
@@ -211,7 +212,7 @@ def build_homepage():
       <li><span class="problem-mark">&#10005;</span>A trial-class lead texts in at 9pm and doesn't hear back until you're free the next afternoon.</li>
       <li><span class="problem-mark">&#10005;</span>A member quits, and nobody ever reaches back out to see if they'd come back.</li>
     </ul>
-    <p class="problem-closing">None of these are separate problems. They're the same traffic — the parent who found you, the lead who almost booked, the member who almost stayed — falling through the same cracks, one after another. Fix the sequence, and all four stop happening at once. That's the difference between patching one symptom and fixing the actual system.</p>
+    <p class="problem-closing">None of these are separate problems. They're the same traffic. The parent who found you, the lead who almost booked, the member who almost stayed. All falling through the same cracks, one after another. Fix the sequence, and all four stop happening at once. That's the difference between patching one symptom and fixing the actual system.</p>
   </div>
 </section>
 
@@ -224,17 +225,17 @@ def build_homepage():
       <div class="process-step">
         <span class="process-badge">1</span>
         <h3>Book a Strategy Call</h3>
-        <p>We look at your actual website, search presence, and current follow-up process, and tell you honestly where the biggest gap actually is — not a generic audit, a specific one based on your school. If a full rebuild isn't the right move yet, we'll tell you that too.</p>
+        <p>We look at your actual website, search presence, and current follow-up process, and tell you honestly where the biggest gap actually is. Not a generic audit: a specific one based on your school. If a full rebuild isn't the right move yet, we'll tell you that too.</p>
       </div>
       <div class="process-step">
         <span class="process-badge">2</span>
         <h3>We Build Your System</h3>
-        <p>Your website, review &amp; referral automation, and follow-up &amp; reactivation get built and connected as one system — live in as fast as 48 hours. Nothing launches in disconnected pieces; it's built to work together from day one.</p>
+        <p>Your website, review &amp; referral automation, and follow-up &amp; reactivation get built and connected as one system, live in as fast as 48 hours. Nothing launches in disconnected pieces; it's built to work together from day one.</p>
       </div>
       <div class="process-step">
         <span class="process-badge">3</span>
         <h3>Leads Start Converting</h3>
-        <p>You keep teaching. The system follows up with new leads within minutes, requests reviews after every win, and reaches out to old leads and inactive members one real conversation at a time — all running automatically in the background.</p>
+        <p>You keep teaching. The system follows up with new leads within minutes, requests reviews after every win, and reaches out to old leads and inactive members one real conversation at a time. All running automatically in the background.</p>
       </div>
     </div>
   </div>
@@ -248,13 +249,13 @@ def build_homepage():
     <div class="included-list">
 ''' + '\n'.join([
         included_item(ICON_WEBSITE, "The Website",
-            "Not a template with your logo dropped in — a real, mobile-first site built around one job: turning the parent researching schools at 9pm into a booked intro class."),
+            "Not a template with your logo dropped in: a real, mobile-first site built around one job. Turning the parent researching schools at 9pm into a booked intro class."),
         included_item(ICON_STAR, "Reviews &amp; Referrals",
-            "Every sign-up, promotion, or good class automatically triggers a review or referral request — so your reputation grows on its own instead of depending on you remembering to ask."),
+            "Every sign-up, promotion, or good class automatically triggers a review or referral request, so your reputation grows on its own instead of depending on you remembering to ask."),
         included_item(ICON_MESSAGE, "Follow-Up &amp; Reactivation",
-            "New leads get followed up within minutes. Leads and past members already sitting in your database get reached out to personally, one real conversation at a time — not a mass blast — typically recovering 2&ndash;4% of that list."),
+            "New leads get followed up within minutes. Leads and past members already sitting in your database get reached out to personally, one real conversation at a time, not a mass blast, typically recovering 2&ndash;4% of that list."),
         included_item(ICON_MEGAPHONE, 'Managed Ads <span class="tag-optional">Optional</span>',
-            "Ads amplify whatever conversion rate already exists. Once your site, reviews, and follow-up are proven to convert, paid traffic becomes worth paying for — not before."),
+            "Ads amplify whatever conversion rate already exists. Once your site, reviews, and follow-up are proven to convert, paid traffic becomes worth paying for. Not before."),
     ]) + '''
     </div>
     <p class="included-teaser-link"><a href="/pricing/">Full breakdown, plus what's included at every stage &rarr; See Pricing</a></p>
@@ -291,16 +292,16 @@ def build_homepage():
           <tr class="reactivation-row">
             <td>Reactivation</td>
             <td><span class="mark bad">Old leads and inactive members, sitting cold.</span></td>
-            <td><span class="mark good">Re-engaged 1:1 — real conversations, not mass texts.</span></td>
+            <td><span class="mark good">Re-engaged 1:1. Real conversations, not mass texts.</span></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <p class="reactivation-callout">Cold leads and inactive members don't respond to a mass text. They respond to a real, personal 1:1 conversation — that's the actual mechanism, not a bigger blast.</p>
+    <p class="reactivation-callout">Cold leads and inactive members don't respond to a mass text. They respond to a real, personal 1:1 conversation. That's the actual mechanism, not a bigger blast.</p>
 
     <div class="reactivation-note">
-      <p>Reactivation campaigns typically recover <b>2–4%</b> of a school's existing dead-lead and inactive-member list. A list of 500 typically returns <b>10–20</b> booked appointments. A list of 1,000 typically returns <b>20–40</b> — no added ad spend.</p>
+      <p>Reactivation campaigns typically recover <b>2–4%</b> of a school's existing dead-lead and inactive-member list. A list of 500 typically returns <b>10–20</b> booked appointments. A list of 1,000 typically returns <b>20–40</b>, no added ad spend.</p>
     </div>
   </div>
 </section>
@@ -315,9 +316,9 @@ def build_homepage():
       </div>
     </div>
     <div class="video-quote">
-      <p class="lede" style="margin-bottom:8px">Here's what that sequence looks like for one real school, start to finish — not a hypothetical, an actual client.</p>
+      <p class="lede" style="margin-bottom:8px">Here's what that sequence looks like for one real school, start to finish. Not a hypothetical: an actual client.</p>
       <p class="q">"I absolutely would recommend it... I think I waited too long. <span>But it was the right time when we were able to team up.</span> I would definitely make the investment because it's going to come back to you. It really doesn't take too long for you to see the benefit."</p>
-      <p class="attr">— Dan Carey, real client</p>
+      <p class="attr">Dan Carey, real client</p>
     </div>
   </div>
 </section>
@@ -367,15 +368,23 @@ def build_homepage():
     <div class="faq-summary-list">
       <div class="faq-summary-item">
         <h3>Do I need to stop running ads?</h3>
-        <p>No — sequencing, not opposition. Fix the foundation first, then ads go further.</p>
-      </div>
-      <div class="faq-summary-item">
-        <h3>Is there a contract?</h3>
-        <p>No long-term contracts.</p>
+        <p>No. Sequencing, not opposition. Fix the foundation first, then ads go further.</p>
       </div>
       <div class="faq-summary-item">
         <h3>How long does it take to launch?</h3>
-        <p>As fast as 48 hours from kickoff.</p>
+        <p>Most schools are live within 48 hours of kickoff, site and automation together.</p>
+      </div>
+      <div class="faq-summary-item">
+        <h3>Is there a contract?</h3>
+        <p>No long-term contracts. You're not locked into a term you can't get out of if the system isn't working for you.</p>
+      </div>
+      <div class="faq-summary-item">
+        <h3>What's actually included?</h3>
+        <p>The website, the review and referral automation, and the follow-up and reactivation system. One build, one monthly rate.</p>
+      </div>
+      <div class="faq-summary-item">
+        <h3>Do you work with multi-location schools?</h3>
+        <p>Yes. Several of the 50+ schools we've worked with run multiple locations under one brand, including a 13-location California franchise.</p>
       </div>
     </div>
     <p class="included-teaser-link"><a href="/faq/">More questions? See the Full FAQ &rarr;</a></p>
@@ -385,15 +394,15 @@ def build_homepage():
 <section class="closing" id="cta">
   <div class="wrap">
     <h2>Stop Losing Traffic<br>You Already Have.</h2>
-    <p>One flat plan covers the whole sequence — website, reviews, follow-up, reactivation. No tiers to guess between, no ad spend required to get started. Ads come later, once the foundation's proven to convert what you already have.</p>
+    <p>One flat plan covers the whole sequence: website, reviews, follow-up, reactivation. No tiers to guess between, no ad spend required to get started. Ads come later, once the foundation's proven to convert what you already have.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
       <a class="btn btn-primary" href="/pricing/#call">Book a Strategy Call</a>
     </div>
   </div>
 </section>'''
     write("index.html", page(
-        "Combat Boost — Websites, Reviews & Follow-Up for Martial Arts Schools",
-        "Combat Boost builds websites, review & referral automation, and AI follow-up for martial arts schools — worked with 50+ schools, before you spend another dollar on ads.",
+        "Combat Boost | Websites, Reviews & Follow-Up for Martial Arts Schools",
+        "Combat Boost builds websites, review & referral automation, and AI follow-up for martial arts schools. Worked with 50+ schools, before you spend another dollar on ads.",
         "/", "/", body))
 
 
@@ -404,8 +413,15 @@ def build_pricing():
     body = '''<section class="page-hero">
   <div class="wrap">
     <a class="crumb" href="/">&larr; Back to Home</a>
-    <h1>One Flat Monthly Rate.<br>No Per-Location Surprises.</h1>
-    <p class="dek">We don't publish a number here — every school's setup is a little different, and we'd rather walk you through your exact fit on a call than post a figure that doesn't apply to you. Here's exactly what's included either way.</p>
+    <h1>Simple, Straightforward Pricing.</h1>
+    <p class="dek">$297/month covers the full system: your website, reviews &amp; referrals, and follow-up &amp; reactivation. Facebook and Google ad management, plus multi-location setups, are quoted separately based on what your school actually needs.</p>
+    <div class="proof-pills" style="margin-top:30px">
+      <div class="proof-pill"><span class="pp-num">50+</span><span class="pp-txt">Schools Worked With</span></div>
+      <div class="proof-pill"><span class="pp-num">50,000+</span><span class="pp-txt">Lead Conversations</span></div>
+      <div class="proof-pill"><span class="pp-num">48-Hour</span><span class="pp-txt">Launch</span></div>
+      <div class="proof-pill"><span class="pp-num">Zero</span><span class="pp-txt">Ad Spend Required</span></div>
+      <div class="proof-pill"><span class="pp-num">30-Day</span><span class="pp-txt">Money-Back Guarantee</span></div>
+    </div>
   </div>
 </section>
 
@@ -414,27 +430,46 @@ def build_pricing():
     <div class="included-list">
 ''' + '\n'.join([
         included_item(ICON_WEBSITE, "The Website",
-            "A real, built-to-convert website for your school — not a template with your logo dropped in. This is the core deliverable and where most of the build time goes."),
+            "A real, built-to-convert website for your school. Not a template with your logo dropped in. This is the core deliverable and where most of the build time goes."),
         included_item(ICON_STAR, "Reviews &amp; Referrals",
             "Automated requests sent after every win, so your Google reviews and referrals grow on their own instead of depending on you remembering to ask."),
         included_item(ICON_MESSAGE, "Follow-Up &amp; Reactivation",
-            "Every new lead followed up within minutes, and your existing past-member list re-engaged on autopilot — not left cold in an old spreadsheet or CRM."),
-        included_item(ICON_MEGAPHONE, 'Managed Ads <span class="tag-optional">Optional Add-On</span>',
-            "Once the site, reviews, and follow-up are converting what you already have, we'll run Google/Facebook ads for you if it makes sense — never the starting point."),
+            "Every new lead followed up within minutes, and your existing past-member list re-engaged on autopilot. Not left cold in an old spreadsheet or CRM."),
+        included_item(ICON_MEGAPHONE, 'Managed Ads <span class="tag-optional">Quoted Separately</span>',
+            "Once the site, reviews, and follow-up are converting what you already have, we'll run Google/Facebook ads for you if it makes sense. Never the starting point."),
     ]) + '''
     </div>
+  </div>
+</section>
 
-    <div style="margin-top:56px; max-width:640px">
-      <h2 style="font-size:26px">Why no number?</h2>
-      <p style="margin-top:14px; font-size:15.5px; color:var(--tx-dark-soft)">Single-location schools, multi-location franchises, and schools coming off an existing website all need a slightly different scope of work — posting one flat number here would either overcharge the simple cases or undersell the complex ones. On the call, we'll tell you the real number for your specific school, honestly, before you commit to anything.</p>
+<section id="pricing-faq">
+  <div class="wrap" style="max-width:820px">
+    <div class="section-head">
+      <h2>Questions About Pricing.</h2>
     </div>
+    <details class="faq-item" open>
+      <summary>Is there a contract?</summary>
+      <p>No long-term contracts. You're not locked into a term you can't get out of if the system isn't working for you.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What's actually included?</summary>
+      <p>The website, the review &amp; referral automation, and the lead follow-up and past-member reactivation system. One build, one monthly rate, no separate tools to stitch together yourself.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do I need to stop running ads?</summary>
+      <p>No. If ads are working for you, keep running them. Our point is sequencing, not opposition: fix what converts the traffic you already get first, then ads go further with every dollar.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What if it's not working for my school?</summary>
+      <p>You're covered by our 30-day money-back guarantee. If it's not working for your school in the first 30 days, we'll refund it.</p>
+    </details>
   </div>
 </section>
 
 <section class="closing" id="call">
   <div class="wrap">
-    <h2>Get Your Exact Number.</h2>
-    <p>15 minutes, no pressure — we'll look at your current site and tell you honestly whether a rebuild is the right move yet.</p>
+    <h2>Get Started.</h2>
+    <p>15 minutes, no pressure. We'll look at your current site and tell you honestly whether a rebuild is the right move for your school right now.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
       <a class="btn btn-primary" href="#">Book a Strategy Call</a>
       <a class="btn btn-ghost-dark" href="/results/">See the Results</a>
@@ -442,8 +477,8 @@ def build_pricing():
   </div>
 </section>'''
     write("pricing/index.html", page(
-        "Pricing — Combat Boost",
-        "What's included in Combat Boost's website, reviews & referrals, and follow-up & reactivation system for martial arts schools. Book a call for your exact rate.",
+        "Pricing | Combat Boost",
+        "$297/month covers the full Combat Boost system: website, reviews & referrals, and follow-up & reactivation for martial arts schools. Ads and multi-location setups quoted separately.",
         "/pricing/", "/pricing/", body))
 
 
@@ -464,13 +499,13 @@ CALENDAR_ITEMS = [
     # client's Drive folder and redacted (student names/personal info pixelated;
     # school names, dates, and appointment density left intact).
     {"school": "Pensacola ATA",                          "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-pensacola-1.png", "featured": True},
-    {"school": "Premier Martial Arts — Pembroke Pines",  "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-premier-pembroke.png", "featured": True},
+    {"school": "Premier Martial Arts, Pembroke Pines",   "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-premier-pembroke.png", "featured": True},
     {"school": "Alliance Jiu Jitsu",                      "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-alliance-jiujitsu.png", "featured": True},
-    {"school": "Black Belt World — Toronto",              "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-blackbelt-toronto.png", "featured": True},
-    {"school": "Kick It Taekwondo — August", "badge": "Fully Booked", "img": "/assets/images/results/calendar-kickit-august.png", "featured": True, "note": "Same school, 5 months later — see the March starting point below"},
-    {"school": "Kick It Taekwondo — March",  "badge": "Starting Point", "img": "/assets/images/results/calendar-kickit-march.png", "featured": False},
-    {"school": "Kick It Taekwondo — March (2nd calendar)",  "badge": "Starting Point", "img": "/assets/images/results/calendar-kickit-march-2.png", "featured": False},
-    {"school": "Kick It Taekwondo — August (2nd calendar)", "badge": "Fully Booked", "img": "/assets/images/results/calendar-kickit-august-2.png", "featured": False},
+    {"school": "Black Belt World, Toronto",               "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-blackbelt-toronto.png", "featured": True},
+    {"school": "Kick It Taekwondo, August", "badge": "Fully Booked", "img": "/assets/images/results/calendar-kickit-august.png", "featured": True, "note": "Same school, 5 months later. See the March starting point below."},
+    {"school": "Kick It Taekwondo, March",  "badge": "Starting Point", "img": "/assets/images/results/calendar-kickit-march.png", "featured": False},
+    {"school": "Kick It Taekwondo, March (2nd calendar)",  "badge": "Starting Point", "img": "/assets/images/results/calendar-kickit-march-2.png", "featured": False},
+    {"school": "Kick It Taekwondo, August (2nd calendar)", "badge": "Fully Booked", "img": "/assets/images/results/calendar-kickit-august-2.png", "featured": False},
     {"school": "Fort Walton ATA",                         "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-fortwalton.png", "featured": False},
     {"school": "Crestview ATA",                           "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-crestview-1.png", "featured": False},
     {"school": "Crestview ATA (2nd month)",               "badge": "$0 Ad Spend", "img": "/assets/images/results/calendar-crestview-2.png", "featured": False},
@@ -481,7 +516,7 @@ CALENDAR_ITEMS = [
 TESTIMONIALS = [
     {
         "name": "Dan Carey", "kind": "Video", "primary": True,
-        "quote": "I think I waited too long — but it was the right time when we were able to team up. I would definitely make the investment, because it's going to come back to you.",
+        "quote": "I think I waited too long, but it was the right time when we were able to team up. I would definitely make the investment, because it's going to come back to you.",
     },
 ]
 
@@ -502,32 +537,17 @@ def calendar_card(item):
       </div>'''
 
 
-def testimonial_card(t):
-    if t.get("primary"):
-        quote_html = f'<p class="story-quote" style="margin-top:0">"{t["quote"]}"</p>'
-    elif t["quote"]:
-        quote_html = f'<p class="story-quote" style="margin-top:0">"{t["quote"]}"</p>'
-    else:
-        quote_html = '<p class="quote-pending">Testimonial text pending — awaiting transcription from Drive.</p>'
-    return f'''      <div class="testimonial-card">
-        <span class="proof-badge">{t["kind"]}</span>
-        {quote_html}
-        <p class="testimonial-name">— {t["name"]}, real client (permission granted)</p>
-      </div>'''
-
-
 def build_results():
     featured = [c for c in CALENDAR_ITEMS if c["featured"]]
     more = [c for c in CALENDAR_ITEMS if not c["featured"]]
     featured_html = "\n".join(calendar_card(c) for c in featured)
     more_html = "\n".join(calendar_card(c) for c in more)
-    testimonials_html = "\n".join(testimonial_card(t) for t in TESTIMONIALS)
 
     body = f'''<section class="page-hero">
   <div class="wrap">
     <a class="crumb" href="/">&larr; Back to Home</a>
     <h1>The Results, Not Just the Pitch.</h1>
-    <p class="dek">Real calendars, real search rankings, real load times, real client messages — from real schools, worked with across 50+ launches. This page grows every time a new one comes in.</p>
+    <p class="dek">Real calendars, real search rankings, real load times, real client messages. From real schools, worked with across 50+ launches. This page grows every time a new one comes in.</p>
   </div>
 </section>
 
@@ -539,7 +559,7 @@ def build_results():
               title="Dan Carey, real Combat Boost client, video testimonial"></iframe>
     </div>
     <p class="story-quote">"{TESTIMONIALS[0]["quote"]}"</p>
-    <p class="testimonial-name">— Dan Carey, real client (permission granted)</p>
+    <p class="testimonial-name">Dan Carey, real client (permission granted)</p>
   </div>
 </section>
 
@@ -547,7 +567,7 @@ def build_results():
   <div class="wrap">
     <div class="section-head">
       <h2>Real Calendars, Real Appointments.</h2>
-      <p>Booking calendars from real schools we've worked with — most of these filled up on $0 ad spend, powered entirely by the site converting traffic that was already there. Student names and personal info are redacted; school names are real.</p>
+      <p>Booking calendars from real schools we've worked with. Most of these filled up on $0 ad spend, powered entirely by the site converting traffic that was already there. Student names and personal info are redacted; school names are real.</p>
     </div>
     <div class="proof-grid">
 {featured_html}
@@ -565,7 +585,7 @@ def build_results():
   <div class="wrap">
     <div class="section-head">
       <h2>Site Performance: Before &amp; After.</h2>
-      <p>A real client's website (a martial arts school in Middle River, MD), measured on Google PageSpeed Insights before and after the rebuild — mobile scores shown.</p>
+      <p>A real client's website (a martial arts school in Middle River, MD), measured on Google PageSpeed Insights before and after the rebuild. Mobile scores shown.</p>
     </div>
     <div class="stat-compare">
       <div class="stat-compare-item">
@@ -585,7 +605,7 @@ def build_results():
   <div class="wrap">
     <div class="section-head">
       <h2>Search Visibility: Before &amp; After.</h2>
-      <p>Up Top Martial Arts Academy — Google Maps ranking density and review count, before and after.</p>
+      <p>Up Top Martial Arts Academy: Google Maps ranking density and review count, before and after.</p>
     </div>
     <div class="stat-compare">
       <div class="stat-compare-item">
@@ -597,7 +617,7 @@ def build_results():
         <div class="sc-nums"><span class="sc-before">4.9</span><span class="sc-arrow">→</span><span class="sc-after">5.0</span></div>
       </div>
     </div>
-    <img class="proof-wide" src="/assets/images/results/search-heatmap.png" alt="Up Top Martial Arts Academy's Google Maps ranking heatmap, before and after — more green pins, closer to the pin, means ranking higher for nearby searches" style="margin-top:28px">
+    <img class="proof-wide" src="/assets/images/results/search-heatmap.png" alt="Up Top Martial Arts Academy's Google Maps ranking heatmap, before and after. More green pins, closer to the pin, means ranking higher for nearby searches" style="margin-top:28px">
   </div>
 </section>
 
@@ -605,7 +625,7 @@ def build_results():
   <div class="wrap">
     <div class="section-head">
       <h2>Growth Over Time, Not Just One Before/After.</h2>
-      <p>Sustained results across a full client relationship — reviews, web traffic, and new contracts signed, tracked over time rather than a single snapshot.</p>
+      <p>Sustained results across a full client relationship: reviews, web traffic, and new contracts signed, tracked over time rather than a single snapshot.</p>
     </div>
     <div class="stat-compare" style="margin-bottom:28px">
       <div class="stat-compare-item">
@@ -626,29 +646,6 @@ def build_results():
   </div>
 </section>
 
-<section class="on-light" id="testimonials">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>What Clients Actually Say.</h2>
-      <p>Unsolicited, in their own words.</p>
-    </div>
-    <div class="text-bubble-wrap">
-      <div class="text-bubble">
-        <p style="margin:0 0 4px">You're company is doing a fantastic job though btw</p>
-        <p style="margin:0; opacity:.85; font-size:12.5px">8:20 PM</p>
-      </div>
-      <div class="text-bubble" style="margin-top:8px">
-        <p style="margin:0 0 4px">We are very impressed</p>
-        <p style="margin:0; opacity:.85; font-size:12.5px">8:20 PM</p>
-      </div>
-      <p class="bubble-cap">A real, unprompted text message from a client (typo is theirs, left as sent).</p>
-    </div>
-    <div class="testimonial-grid">
-{testimonials_html}
-    </div>
-  </div>
-</section>
-
 <section class="closing" id="call">
   <div class="wrap">
     <h2>Want Results Like These?</h2>
@@ -659,7 +656,7 @@ def build_results():
   </div>
 </section>'''
     write("results/index.html", page(
-        "Results — Combat Boost",
+        "Results | Combat Boost",
         "Real booking calendars, real search visibility gains, real site performance improvements, and real client testimonials from Combat Boost's 50+ martial arts school clients.",
         "/results/", "/results/", body))
 
@@ -672,7 +669,7 @@ def build_about():
   <div class="wrap">
     <a class="crumb" href="/">&larr; Back to Home</a>
     <h1>We Only Work With Martial Arts Schools.</h1>
-    <p class="dek">Not gyms in general, not "local businesses" — martial arts schools specifically.</p>
+    <p class="dek">Not gyms in general, not "local businesses." Martial arts schools specifically.</p>
   </div>
 </section>
 
@@ -683,9 +680,9 @@ def build_about():
       <p class="about-cap">One of the 50+ schools we've worked with, mid-class.</p>
     </div>
     <div class="about-copy">
-      <p style="font-size:15.5px; color:var(--tx-dark-soft)">A belt-testing schedule, a trial-class funnel, and a parent's decision process don't look like anything else we could serve instead — so rather than build a generic small-business playbook and put a karate photo on top of it, we only work in this one industry.</p>
-      <p style="font-size:15.5px; color:var(--tx-dark-soft)">Everything on this site is built from what's actually worked across <span class="stat-inline">50+</span> real school launches — from single-location dojos to multi-location franchises. One system: the website, the review &amp; referral automation, and the follow-up, sold as one connected build, not separate add-ons.</p>
-      <p style="font-size:15.5px; color:var(--tx-dark-soft)">The core belief behind how we sequence the work: most schools are already getting real traffic — from Google, from reviews, from word of mouth. The website's job is to actually convert that traffic before spending anything on ads to get more of it.</p>
+      <p style="font-size:15.5px; color:var(--tx-dark-soft)">A belt-testing schedule, a trial-class funnel, and a parent's decision process don't look like anything else we could serve instead. So rather than build a generic small-business playbook and put a karate photo on top of it, we only work in this one industry.</p>
+      <p style="font-size:15.5px; color:var(--tx-dark-soft)">Everything on this site is built from what's actually worked across <span class="stat-inline">50+</span> real school launches, from single-location dojos to multi-location franchises. One system: the website, the review &amp; referral automation, and the follow-up, sold as one connected build, not separate add-ons.</p>
+      <p style="font-size:15.5px; color:var(--tx-dark-soft)">The core belief behind how we sequence the work: most schools are already getting real traffic, from Google, from reviews, from word of mouth. The website's job is to actually convert that traffic before spending anything on ads to get more of it.</p>
     </div>
   </div>
 </section>
@@ -701,8 +698,8 @@ def build_about():
   </div>
 </section>'''
     write("about/index.html", page(
-        "About — Combat Boost",
-        "Combat Boost only works with martial arts schools — websites, review & referral automation, and follow-up, built from what's worked across 50+ real school launches.",
+        "About | Combat Boost",
+        "Combat Boost only works with martial arts schools: websites, review & referral automation, and follow-up, built from what's worked across 50+ real school launches.",
         "/about/", "/about/", body))
 
 
@@ -722,31 +719,31 @@ def build_faq():
   <div class="wrap" style="max-width:820px">
     <details class="faq-item" open>
       <summary>Do I need to stop running ads?</summary>
-      <p>No — if ads are working for you, keep running them. Our point is sequencing, not opposition: fix what converts the traffic you already get first, then ads go further with every dollar. We also build and run ads ourselves once that foundation is in place — see Pricing for how that fits in.</p>
+      <p>No. If ads are working for you, keep running them. Our point is sequencing, not opposition: fix what converts the traffic you already get first, then ads go further with every dollar. We also build and run ads ourselves once that foundation is in place. See Pricing for how that fits in.</p>
     </details>
     <details class="faq-item">
       <summary>I already have a website. Do I need a new one?</summary>
-      <p>Usually, yes — most schools' sites were built once and never touched again. We'll tell you honestly on the call if a rebuild isn't the highest-leverage move for you yet.</p>
+      <p>Usually, yes. Most schools' sites were built once and never touched again. We'll tell you honestly on the call if a rebuild isn't the highest-leverage move for you yet.</p>
     </details>
     <details class="faq-item">
       <summary>How long does it take to launch?</summary>
-      <p>Most schools are live within a few weeks of kickoff, site and automation together — not a six-month agency timeline.</p>
+      <p>Most schools are live within 48 hours of kickoff, site and automation together. Not a six-month agency timeline.</p>
     </details>
     <details class="faq-item">
       <summary>What's actually included?</summary>
-      <p>The website, the review &amp; referral automation, and the lead follow-up + past-member reactivation system — one build, one monthly rate, no separate tools to stitch together yourself. Full breakdown on the Pricing page.</p>
+      <p>The website, the review &amp; referral automation, and the lead follow-up and past-member reactivation system. One build, one monthly rate, no separate tools to stitch together yourself. Full breakdown on the Pricing page.</p>
     </details>
     <details class="faq-item">
       <summary>Is there a contract?</summary>
-      <p>We'll cover the specifics on the call — happy to be direct about it rather than bury it in fine print here.</p>
+      <p>No long-term contracts. You're not locked into a term you can't get out of if the system isn't working for you.</p>
     </details>
     <details class="faq-item">
       <summary>Do you work with multi-location schools?</summary>
-      <p>Yes — several of the 50+ schools we've worked with run multiple locations under one brand, including a 13-location California franchise. See Results.</p>
+      <p>Yes. Several of the 50+ schools we've worked with run multiple locations under one brand, including a 13-location California franchise. See Results.</p>
     </details>
     <details class="faq-item">
       <summary>What if I'm not sure a rebuild is worth it yet?</summary>
-      <p>Ask on the call — we'll give you a straight answer, even if that answer is "not yet." We'd rather be honest upfront than sign a client who isn't a fit.</p>
+      <p>Ask on the call. We'll give you a straight answer, even if that answer is "not yet." We'd rather be honest upfront than sign a client who isn't a fit.</p>
     </details>
   </div>
 </section>
@@ -754,14 +751,14 @@ def build_faq():
 <section class="closing" id="call">
   <div class="wrap">
     <h2>Still Have a Question?</h2>
-    <p>Ask it directly on a call — 15 minutes, no pressure.</p>
+    <p>Ask it directly on a call. 15 minutes, no pressure.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
       <a class="btn btn-primary" href="/pricing/#call">Book a Strategy Call</a>
     </div>
   </div>
 </section>'''
     write("faq/index.html", page(
-        "FAQ — Combat Boost",
+        "FAQ | Combat Boost",
         "Answers to the most common questions about Combat Boost's website, review & referral automation, and follow-up system for martial arts schools.",
         "/faq/", "/faq/", body))
 

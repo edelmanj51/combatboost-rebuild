@@ -13,7 +13,7 @@ override anything marked locked.
 - Combat Boost is an AI marketing agency working **exclusively** with
   martial arts schools. Flat pricing: **$297/month**. Legal entity: **JPE
   Enterprises** (site footer reads "JPE Enterprises LLC, DBA Combat Boost").
-- **Four confirmed stats — the only numbers/timeframes used anywhere on the
+- **Six confirmed stats — the only numbers/timeframes used anywhere on the
   site:**
   - **"50+ Schools Worked With"** (51 real schools served). Never
     substitute any other school-count number.
@@ -21,11 +21,16 @@ override anything marked locked.
     not a claim about leads acquired or ad spend. Do not blur this
     distinction in copy.
   - **"48-Hour Launch"** — confirmed real average/typical kickoff-to-live
-    turnaround. The earlier "72 hours" figure is superseded — never use it.
-  - **"No Long-Term Contracts"** — real, qualitative. Use specifically in
-    the Comparison table's Contract Terms row, not as a 4th hero stat-pill
-    (would be redundant with the 3-stat hero bar below).
-  Do not use any number, timeframe, or claim beyond these four anywhere on
+    turnaround. The earlier "72 hours" figure and any "a few weeks"
+    phrasing are both superseded — never use either.
+  - **"No Long-Term Contracts"** — real, qualitative. State it plainly and
+    directly everywhere it appears (Comparison table, FAQ, Pricing) — do
+    not hedge this into "we'll cover it on the call" language.
+  - **"Zero Ad Spend Required"** — the core system works without paid
+    ads; ads are a separately-quoted add-on, never the starting point.
+  - **"30-Day Money-Back Guarantee"** — confirmed real, active policy
+    (added Sep 2026). Safe to state confidently on the Pricing page.
+  Do not use any number, timeframe, or claim beyond these six anywhere on
   the site.
 - **6 named client logos**, in this exact order: Premier Martial Arts, ATA
   (American Taekwondo Association), Moore's Karate, Ahn's Taekwondo Academy,
@@ -53,12 +58,16 @@ override anything marked locked.
   physical schools exists. Do not build layouts that depend on large
   real-photo treatments carrying visual weight. Reserve actual photography
   for the Results page, where the real assets already live.
-- Pricing ($297/mo) is **deliberately never shown** on the homepage or on
-  the dedicated `/pricing` page itself — `/pricing` shows no number by
-  design, keeping "Book a Call" as the path to that conversation. Do not
-  add a price display or a pricing-gated lead form without an explicit,
-  separate request — that's future work requiring form/backend handling
-  outside this repo's current static-HTML, no-interactivity scope.
+- **Pricing history note**: earlier rounds of this project deliberately
+  hid the $297/mo number on both the homepage and `/pricing` itself
+  ("we don't publish a number here"). That decision was reversed (Sep
+  2026) — `/pricing` now states $297/month plainly and confidently in its
+  own headline/subhead. The homepage still never shows the number (its
+  CTAs stay "Book a Strategy Call," not a price) — that split is
+  intentional, not an oversight. Do not add a pricing-gated lead form
+  without an explicit, separate request — that's future work requiring
+  form/backend handling outside this repo's current static-HTML,
+  no-interactivity scope.
 - **Real logo asset**: pulled directly from the live production site
   (combatboost.ai) rather than redrawn. Full lockup (mark + wordmark) saved
   locally at `/tmp/logo-cropped.png` during extraction; the icon mark alone
@@ -147,7 +156,14 @@ generic uniform "SaaS-card-kit" look (identical rounded cards, one
 border-radius everywhere, matching soft grey drop-shadows on every card,
 gradient washes as pure decoration). Never use any stat, client count,
 years-in-business, or number sourced from an unrelated business/template —
-only the four confirmed facts above.
+only the six confirmed facts above. **No em dashes anywhere in site copy**
+(added Sep 2026, standing rule for this and all future passes) — rewrite
+using periods, colons, or plain sentence structure instead. This applies to
+every string a visitor can read (headlines, body copy, meta titles/
+descriptions, alt text) — not to code comments in `build.py`/`styles.css`,
+nor to HTML comments embedded in output (e.g. the Priority-6 dev note in
+`FOOTER`), both of which are developer-facing planning notes, not
+rendered/visible site copy.
 
 ## Current Site Structure (as of this file's last update)
 
