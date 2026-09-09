@@ -20,17 +20,26 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0; background:var(--ink); font-family:"IBM Plex Sans",system-ui,sans-serif; color:var(--tx-dark); line-height:1.55}
-h1,h2,h3,h4{font-family:"Big Shoulders Display",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.01em; text-wrap:balance; margin:0}
+/* Negative tracking on every uppercase headline — tighter as size grows,
+   found on Academy Blast (~-0.6px at 20px scaling to ~-2px at 65px, a
+   near-constant -3% em ratio). We use a slightly gentler -2% em since Big
+   Shoulders Display is already condensed; this still replaces the old
+   open/positive tracking, which read as looser and less deliberate. */
+h1,h2,h3,h4{font-family:"Big Shoulders Display",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:-.02em; text-wrap:balance; margin:0}
 .mono{font-family:"IBM Plex Mono",monospace}
 p{margin:0}
 a{color:inherit}
 img,svg{display:block}
 .wrap{max-width:1180px; margin:0 auto; padding:0 32px}
 @media (max-width:640px){ .wrap{padding:0 20px} }
+/* Fully round pill shape, both primary and secondary — Academy Blast's
+   button discipline: rounding exists only here and on the proof-pill,
+   nowhere else on the site. No shadow on either state; visual weight
+   comes from fill contrast and the hover lift alone. */
 .btn{
-  display:inline-flex; align-items:center; gap:8px; font-family:"IBM Plex Sans"; font-weight:600;
-  font-size:15px; padding:14px 26px; border-radius:3px; cursor:pointer; border:1px solid transparent;
-  text-decoration:none; transition:transform .15s ease;
+  display:inline-flex; align-items:center; gap:8px; font-family:"IBM Plex Sans"; font-weight:700;
+  font-size:15px; letter-spacing:-.01em; padding:15px 32px; border-radius:999px; cursor:pointer; border:1px solid transparent;
+  text-decoration:none; transition:transform .15s ease, opacity .15s ease;
 }
 .btn:hover{transform:translateY(-1px)}
 .btn-gold{background:var(--gold); color:var(--ink)}
@@ -142,37 +151,33 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
 }
 
 /* ---------- hero ---------- */
-/* Real-photo hero — a genuine training photo (not stock), dark scrim
-   graduated left-to-right so the headline sits fully legible on the left
-   while real photo detail stays visible on the right. */
-.hero{position:relative; overflow:hidden; padding:0}
-.hero-media{position:absolute; inset:0; z-index:0}
-.hero-media img{width:100%; height:100%; object-fit:cover; object-position:center 35%; display:block}
-.hero-scrim{
-  position:absolute; inset:0;
-  background:linear-gradient(100deg,
-    var(--ink) 0%, var(--ink) 32%,
-    rgba(21,19,15,.88) 46%, rgba(21,19,15,.5) 64%, rgba(21,19,15,.1) 88%);
-}
-.hero-content{position:relative; z-index:1; padding:108px 0 76px; max-width:640px}
+/* No photo — very little real client/school photography exists, and a
+   faded-photo treatment (Academy Blast's own trick) only reads as
+   restraint on their all-neutral palette, not ours. The stat-pill row
+   below carries the hero's visual weight instead. Asymmetric top/bottom
+   padding mirrors Academy Blast's real hero rhythm (heavier top, lighter
+   bottom) rather than the centered padding used on interior page-heroes. */
+.hero{background:var(--ink); padding:0}
+.hero-content{padding:104px 0 84px; max-width:720px}
 @media (max-width:760px){
-  .hero-content{padding:88px 0 56px; max-width:100%}
-  .hero-scrim{background:linear-gradient(180deg, var(--ink) 0%, rgba(21,19,15,.9) 55%, rgba(21,19,15,.72) 100%)}
+  .hero-content{padding:76px 0 56px}
 }
-.hero h1{font-size:clamp(38px,5.4vw,60px); line-height:1.02; margin:0 0 22px}
+.hero h1{font-size:clamp(36px,5.6vw,64px); line-height:1.02; margin:0 0 22px}
 .hero h1 em{font-style:normal; color:var(--gold-bright)}
-.hero .dek{font-size:18px; color:var(--tx-dark-soft); max-width:50ch; margin-bottom:34px}
+.hero .dek{font-size:18px; color:var(--tx-dark-soft); max-width:52ch; margin-bottom:34px}
 .hero .actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px}
 .hero .btn-ghost-dark{border-color:rgba(244,239,228,.4)}
 
-/* Proof pills — near/over the photo, replacing the old floating stat
-   cards. Pill shape (full radius) is used only here, deliberately
-   distinct from the site's squarer button radius elsewhere. */
+/* Proof pills carry the hero's visual weight in place of a photo. Pill
+   shape (20px radius, not fully round — matches the reference site's
+   actual pill-capsule radius) and the one soft shadow used anywhere on
+   the site both live here, deliberately reserved to this one component. */
 .proof-pills{display:flex; gap:12px; flex-wrap:wrap}
 .proof-pill{
   display:inline-flex; align-items:baseline; gap:9px;
   background:rgba(244,239,228,.08); border:1px solid rgba(244,239,228,.22);
-  border-radius:100px; padding:11px 20px;
+  border-radius:20px; padding:14px 22px;
+  box-shadow:inset 0 1px 0 rgba(244,239,228,.06), 0 10px 26px rgba(0,0,0,.35);
 }
 .pp-num{font-family:"Big Shoulders Display"; font-weight:800; font-size:21px; color:var(--gold-bright)}
 .pp-txt{font-size:13.5px; color:var(--tx-dark); font-weight:500}
@@ -211,7 +216,7 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
 
 /* ---------- proof strip ---------- */
 .proof{background:var(--ink-2); border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark)}
-.proof-inner{padding:34px 0; display:flex; align-items:center; gap:40px; flex-wrap:wrap; justify-content:space-between}
+.proof-inner{padding:40px 0; display:flex; align-items:center; gap:40px; flex-wrap:wrap; justify-content:space-between}
 .proof-lede{font-family:"IBM Plex Mono"; font-size:13px; color:var(--tx-dark-soft); white-space:nowrap; display:flex; align-items:baseline; gap:10px}
 .proof-lede b{font-family:"Big Shoulders Display"; font-weight:800; font-size:30px; color:var(--gold-bright)}
 .logo-row{display:flex; gap:38px; flex-wrap:wrap; align-items:center}
@@ -230,7 +235,9 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
 .quote-banner .attr b{color:var(--gold-bright)}
 
 /* ---------- before/after table ---------- */
-.baTable{width:100%; border-collapse:collapse; background:var(--cream); overflow:hidden; border-radius:8px}
+/* No radius here — rounding is reserved to buttons and the proof-pill
+   component only, per the reference site's discipline. */
+.baTable{width:100%; min-width:560px; border-collapse:collapse; background:var(--cream); overflow:hidden; border-radius:0}
 .baTable th, .baTable td{padding:18px 22px; text-align:left; border-bottom:1px solid var(--line-light); font-size:15px}
 .baTable thead th{
   font-family:"IBM Plex Mono"; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;
@@ -243,6 +250,22 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
 .mark.good::before{content:"✓"; color:var(--good); font-weight:700}
 .reactivation-row td{background:var(--cream-2)}
 .tableWrap{overflow-x:auto}
+
+/* Standalone reactivation insight — kept out of the table cell on
+   purpose, since it's a distinct point ("conversations, not blasts"),
+   not a row description. */
+.reactivation-callout{
+  margin-top:26px; font-family:"Big Shoulders Display"; font-weight:600; text-transform:none;
+  font-size:clamp(18px,2vw,22px); line-height:1.32; color:var(--tx-light); max-width:62ch;
+}
+/* Worked-example math — a distinct callout, not a plain paragraph.
+   Left accent rule signals "worked example," same functional pattern
+   already used on pull-quotes elsewhere — not decorative-only. */
+.reactivation-note{
+  margin-top:22px; border-left:2px solid var(--clay); padding-left:20px; max-width:58ch;
+}
+.reactivation-note p{font-size:14.5px; color:var(--tx-light-soft); line-height:1.6}
+.reactivation-note b{color:var(--clay); font-weight:700}
 
 /* ---------- feature strip: plain text, no icon boxes ---------- */
 .feature-strip{

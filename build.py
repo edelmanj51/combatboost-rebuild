@@ -30,6 +30,7 @@ LOGO_SVG = '''<svg width="{size}" height="{size}" viewBox="0 0 100 100" aria-hid
 
 def head(title, description, canonical_path):
     return f'''<!doctype html>
+<meta charset="utf-8">
 <title>{title}</title>
 <meta name="description" content="{description}">
 <link rel="canonical" href="https://combatboost.ai{canonical_path}">
@@ -132,7 +133,7 @@ def page(title, description, canonical_path, active_href, body):
 def write(rel_path, content):
     full = os.path.join(ROOT, rel_path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
-    with open(full, "w") as f:
+    with open(full, "w", encoding="utf-8") as f:
         f.write(content)
     print(f"  wrote {rel_path}  ({len(content):,} bytes)")
 
@@ -141,37 +142,23 @@ def write(rel_path, content):
 # HOMEPAGE
 # ============================================================
 def build_homepage():
-    import base64
-    imgs = {}
-    for key, fname in [
-        ("before-clifton", "assets/images/before-clifton.jpg"),
-        ("after-clifton", "assets/images/after-clifton.jpg"),
-        ("hero-training", "assets/images/hero-training.jpg"),
-    ]:
-        imgs[key] = f"/{fname}"
-
-    body = f'''<section class="hero" id="top">
-  <div class="hero-media">
-    <img src="{imgs['hero-training']}" alt="Real students training at one of the martial arts schools Combat Boost has worked with" loading="eager">
-    <div class="hero-scrim"></div>
-  </div>
+    body = '''<section class="hero" id="top">
   <div class="wrap hero-content">
-    <h1>The Leads Are Already Coming.<br>Your Website Keeps <em>Losing</em> Them.</h1>
-    <p class="dek">Most martial arts websites just sit there. We build ours to convert the traffic you're already getting — before you spend a dollar on ads. You teach. We fill the calendar.</p>
+    <h1>You're Not Losing to Competitors.<br>You're Losing Traffic You <em>Already Have</em>.</h1>
+    <p class="dek">People are already searching for a school like yours. Your website, your follow-up, or your old leads are letting them walk. Fix that before you spend a dollar on ads.</p>
     <div class="actions">
       <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
       <a class="btn btn-ghost-dark" href="#how-it-works">See How It Works</a>
     </div>
     <div class="proof-pills">
       <div class="proof-pill"><span class="pp-num">50+</span><span class="pp-txt">Schools Worked With</span></div>
-      <div class="proof-pill"><span class="pp-num">$0</span><span class="pp-txt">Ad Spend, Real Bookings</span></div>
     </div>
   </div>
 </section>
 
 <div class="proof">
   <div class="wrap proof-inner">
-    <div class="proof-lede"><b>50+</b><span>schools worked with —<br>including:</span></div>
+    <div class="proof-lede"><b>50+</b><span>martial arts schools<br>worked with — including:</span></div>
     <div class="logo-row">
       <div class="logo-word">Premier<br><small>Martial Arts</small></div>
       <div class="logo-word">ATA<br><small>American Taekwondo Assoc.</small></div>
@@ -183,18 +170,11 @@ def build_homepage():
   </div>
 </div>
 
-<section class="quote-banner">
-  <div class="wrap">
-    <p class="q">My stress level has went down... the door's been swinging open, and I've been happy seeing the people come in.</p>
-    <p class="attr">— <b>Dan Carey</b>, real client, on the change after launch</p>
-  </div>
-</section>
-
 <section class="on-light" id="how-it-works">
   <div class="wrap">
     <div class="section-head">
-      <h2>Fix the Four Things Actually Costing You Students.</h2>
-      <p>Not four separate products — one connected system. Here's the honest before/after, including the past-member list most schools have written off.</p>
+      <h2>It's One Sequence, Not Four Fixes.</h2>
+      <p>Google search &rarr; your website &rarr; your follow-up &rarr; nothing falls through the cracks.</p>
     </div>
     <div class="tableWrap">
       <table class="baTable">
@@ -204,98 +184,59 @@ def build_homepage():
         <tbody>
           <tr>
             <td>Website</td>
-            <td><span class="mark bad">Looks fine, converts almost nobody</span></td>
-            <td><span class="mark good">Built to turn visitors into booked intros</span></td>
+            <td><span class="mark bad">Looks fine. Converts nobody.</span></td>
+            <td><span class="mark good">Built to turn visits into booked intros.</span></td>
           </tr>
           <tr>
             <td>Reviews &amp; Referrals</td>
-            <td><span class="mark bad">A handful of old reviews, no referral flow</span></td>
-            <td><span class="mark good">Reviews and referrals requested automatically, after every win</span></td>
+            <td><span class="mark bad">A few old reviews. No referral system.</span></td>
+            <td><span class="mark good">Requested automatically, after every win.</span></td>
           </tr>
           <tr>
             <td>Follow-Up</td>
-            <td><span class="mark bad">New leads texted back "when there's time"</span></td>
-            <td><span class="mark good">Every lead followed up within minutes, every time</span></td>
+            <td><span class="mark bad">New leads texted back "when there's time."</span></td>
+            <td><span class="mark good">Every lead followed up within minutes.</span></td>
           </tr>
           <tr class="reactivation-row">
-            <td>Past Members</td>
-            <td><span class="mark bad">Sitting cold in an old spreadsheet or CRM</span></td>
-            <td><span class="mark good">Re-engaged on autopilot — some come back and re-enroll</span></td>
-          </tr>
-          <tr>
-            <td>Your Time</td>
-            <td><span class="mark bad">Chasing leads between classes</span></td>
-            <td><span class="mark good">Teaching. The system chases for you</span></td>
+            <td>Reactivation</td>
+            <td><span class="mark bad">Old leads and inactive members, sitting cold.</span></td>
+            <td><span class="mark good">Re-engaged 1:1 — real conversations, not mass texts.</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p style="margin-top:22px; font-size:14.5px; color:var(--tx-light-soft); max-width:60ch">On the "Follow-Up" row, in Dan Carey's own words: <i>"The communication, the system's pretty simple. I get an alert that someone's been signed up... it helps with welcoming people in."</i></p>
 
-    <div class="ba-compare" style="margin-top:56px; max-width:640px">
-      <div class="ba-label before"><span class="tag"></span>Before — the school's actual old site</div>
-      <div class="ba-frame">
-        <div class="ba-chrome"><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-url">cliftonmartialarts.com</span></div>
-        <img src="{imgs['before-clifton']}" alt="A real client's old website before Combat Boost, live as of this build" loading="lazy">
-      </div>
-      <div class="ba-after">
-        <div class="ba-label after"><span class="tag"></span>After — built by Combat Boost</div>
-        <div class="ba-frame">
-          <div class="ba-chrome"><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-dot"></span><span class="ba-url">cliftonmartialarts.com</span></div>
-          <img src="{imgs['after-clifton']}" alt="The same school's site after the Combat Boost rebuild" loading="lazy">
-        </div>
-      </div>
-      <p class="ba-cap">Real client, real rebuild — Clifton Martial Arts Academy, Clifton, NJ. <a href="/results/">See more results →</a></p>
+    <p class="reactivation-callout">Cold leads and inactive members don't respond to a mass text. They respond to a real, personal 1:1 conversation — that's the actual mechanism, not a bigger blast.</p>
+
+    <div class="reactivation-note">
+      <p>Reactivation campaigns typically recover <b>2–4%</b> of a school's existing dead-lead and inactive-member list. A list of 500 typically returns <b>10–20</b> booked appointments. A list of 1,000 typically returns <b>20–40</b> — no added ad spend.</p>
     </div>
   </div>
 </section>
 
-<section id="what-happens-next">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="lede">The website gets people in the door. Here's what happens next.</p>
-      <h2>Turn First Visits Into Long-Term Members.</h2>
-    </div>
-    <div class="feature-strip">
-      <span>Review &amp; Referral Requests</span>
-      <span>Automated New-Lead Follow-Up</span>
-      <span>Past-Member Reactivation</span>
-      <span>Managed Ads <i>(optional)</i></span>
-    </div>
-    <div class="neg-space">
-      <p><b>No</b> more guessing which leads went cold.</p>
-      <p><b>No</b> more manually chasing down phone numbers between classes.</p>
-      <p><b>No</b> more losing a sign-up because the follow-up came a day too late.</p>
-    </div>
-  </div>
-</section>
-
-<section>
+<section id="proof-story">
   <div class="wrap video-block">
     <div>
-      <div class="video-card">
-        <div class="play" aria-hidden="true"></div>
-        <span class="vc-cap">▶ 2:14 — Dan Carey, real client (permission granted)</span>
+      <div class="video-embed-wrap">
+        <iframe src="https://player.vimeo.com/video/1224788450?h=171cc92b25&title=0&byline=0&portrait=0"
+                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"
+                title="Dan Carey, real Combat Boost client, video testimonial"></iframe>
       </div>
     </div>
     <div class="video-quote">
-      <p class="q">"I think I waited too long <span>— but it was the right time when we were able to team up.</span> I would definitely make the investment, because it's going to come back to you."</p>
-      <p class="attr">— Dan Carey, on deciding to sign up</p>
-      <div class="woven-stat">
-        <span class="ws-num">+9</span>
-        <span class="ws-txt">past members reactivated on average per school, from one automated win-back sequence.</span>
-      </div>
+      <p class="lede" style="margin-bottom:8px">One school. The whole sequence, start to finish.</p>
+      <p class="q">"I absolutely would recommend it... I think I waited too long. <span>But it was the right time when we were able to team up.</span> I would definitely make the investment because it's going to come back to you. It really doesn't take too long for you to see the benefit."</p>
+      <p class="attr">— Dan Carey, real client</p>
     </div>
   </div>
 </section>
 
 <section class="closing" id="cta">
   <div class="wrap">
-    <h2>Ready to Stop Losing<br>the Traffic You Already Have?</h2>
-    <p>See exactly what's included and book a call — no pricing number posted here, because every school's setup is a little different and we'd rather talk it through than post a number that doesn't fit you.</p>
+    <h2>Stop Losing Traffic<br>You Already Have.</h2>
+    <p>One flat price, the whole sequence fixed — website, reviews, follow-up, reactivation. Ads only once that's actually converting.</p>
     <div class="actions" style="justify-content:center; display:flex; gap:14px; flex-wrap:wrap">
       <a class="btn btn-gold" href="/pricing/#call">Book a Strategy Call</a>
-      <a class="btn btn-ghost-dark" href="/results/">See the Results</a>
     </div>
   </div>
 </section>'''
