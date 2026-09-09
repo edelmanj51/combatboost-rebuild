@@ -116,12 +116,27 @@ nav.main a[aria-current="page"]{color:var(--gold-bright)}
 .page-hero h1{font-size:clamp(32px,4.6vw,52px); line-height:1.02; margin-bottom:16px}
 .page-hero .dek{font-size:17px; color:var(--tx-dark-soft); max-width:60ch}
 
-/* ---------- plain-text included list (pricing) — no icon boxes ---------- */
+/* ---------- included list (pricing) — icon + label per row ---------- */
+/* Icon treatment adapted from NextKick's feature-grid component (real
+   extraction: 40px circle, 10%-opacity brand-tint fill, 20px line icon,
+   transition-colors only — no border, no shadow, no lift). Translated to
+   Combat Boost's gold accent and its own radius discipline: the circle is
+   a deliberate exception alongside buttons (small round icon/avatar
+   badges, same logic as Academy Blast's own round pill-avatar), not a
+   card — the row itself keeps 0px radius, no border, no shadow. */
 .included-list{border-top:1px solid var(--line-light)}
 .included-item{
   display:grid; grid-template-columns:200px 1fr; gap:24px; padding:26px 0; border-bottom:1px solid var(--line-light);
 }
 @media (max-width:700px){ .included-item{grid-template-columns:1fr; gap:6px} }
+.included-icon-row{display:flex; align-items:center; gap:14px}
+.included-icon{
+  width:40px; height:40px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(201,151,43,.12); transition:background-color .15s ease;
+}
+.included-item:hover .included-icon{background:rgba(201,151,43,.2)}
+.included-icon svg{width:20px; height:20px; color:var(--gold)}
 .included-item h3{font-size:18px; text-transform:none; color:var(--tx-light)}
 .included-item p{font-size:14.5px; color:var(--tx-light-soft); margin-top:6px}
 .included-item .tag-optional{font-family:"IBM Plex Mono"; font-size:11px; color:var(--clay); text-transform:uppercase}
